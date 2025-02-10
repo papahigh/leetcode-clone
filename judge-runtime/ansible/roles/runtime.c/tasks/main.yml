@@ -1,0 +1,38 @@
+---
+
+- name: Import LLVM GPG key
+  apt_key:
+    url: https://apt.llvm.org/llvm-snapshot.gpg.key
+    state: present
+    validate_certs: yes
+
+- name: Add LLVM apt repository
+  apt_repository:
+    repo: "deb https://apt.llvm.org/bookworm/ llvm-toolchain-bookworm-19 main"
+    state: present
+    filename: "llvm"
+    update_cache: yes
+
+- name: Install Clang
+  apt:
+    name:
+      - clang-19
+      - lld-19
+    state: present
+    install_recommends: false
+
+- name: Update alternatives for clang to clang-19
+  alternatives:
+    name: clang
+    path: /usr/bin/clang-19
+    link: /usr/bin/clang
+    priority: 100
+
+- name: Update alternatives for clang++ to clang++-19
+  alternatives:
+    name: clang++
+    path: /usr/bin/clang++-19
+    link: /usr/bin/clang++
+    priority: 100
+
+...

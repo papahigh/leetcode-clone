@@ -1,0 +1,21 @@
+---
+
+- name: Download Node.js installer
+  get_url:
+    url: https://deb.nodesource.com/setup_22.x
+    dest: /tmp/nodesource_setup.sh
+
+- name: Run setup script
+  shell: bash /tmp/nodesource_setup.sh
+
+- name: Install Node.js
+  apt:
+    name: nodejs
+    state: present
+
+- name: Cleanup files
+  file:
+    path: /tmp/nodesource_setup.sh
+    state: absent
+
+...

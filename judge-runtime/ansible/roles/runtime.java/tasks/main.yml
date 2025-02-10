@@ -1,0 +1,17 @@
+---
+
+- name: Download OpenJDK
+  get_url:
+    url: https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb
+    dest: /tmp/jdk-21_linux-x64_bin.deb
+
+- name: Install Java
+  apt:
+    deb: /tmp/jdk-21_linux-x64_bin.deb
+
+- name: Cleanup files
+  file:
+    path: /tmp/jdk-21_linux-x64_bin.deb
+    state: absent
+
+...

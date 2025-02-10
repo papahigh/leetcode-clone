@@ -1,0 +1,12 @@
+---
+
+- name: Check if NPM is installed
+  shell: command -v npm
+  register: npm_exists
+  ignore_errors: no
+
+- name: Install TypeScript via NPM
+  when: npm_exists
+  command: npm install -g typescript@=5.7.3
+
+...

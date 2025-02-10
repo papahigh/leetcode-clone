@@ -1,0 +1,10 @@
+---
+
+- name: Install Rust
+  apt:
+    name:
+      - rustc
+      - cargo
+    state: present
+
+...

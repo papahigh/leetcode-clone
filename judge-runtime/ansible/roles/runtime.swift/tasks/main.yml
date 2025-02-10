@@ -1,0 +1,37 @@
+---
+
+- name: Install Swift dependencies
+  apt:
+    name:
+      - libncurses6
+    state: present
+
+- name: Download Swift tarball
+  get_url:
+    url: https://download.swift.org/swift-6.0.3-release/debian12/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-debian12.tar.gz
+    dest: /tmp/swift.tar.gz
+
+- name: Create Swift directory
+  file:
+    path: /usr/local/swift
+    state: directory
+
+- name: Extract Swift to /usr/local/swift
+  unarchive:
+    src: /tmp/swift.tar.gz
+    dest: /usr/local/swift
+    remote_src: yes
+    extra_opts: [ "--strip-components=2" ]
+
+- name: Link Swift binary
+  file:
+    src: /usr/local/swift/bin/swiftc
+    dest: /usr/local/bin/swiftc
+    state: link
+
+- name: Cleanup files
+  file:
+    path: /tmp/swift.tar.gz
+    state: absent
+
+...

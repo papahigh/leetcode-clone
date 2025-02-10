@@ -1,0 +1,18 @@
+---
+
+- name: Add Microsoft GPG key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+
+- name: Add Microsoft apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://packages.microsoft.com/debian/12/prod bookworm main"
+    state: present
+
+- name: Install .NET SDK
+  apt:
+    name: dotnet-sdk-9.0
+    state: present
+
+...

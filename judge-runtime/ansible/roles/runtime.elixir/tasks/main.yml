@@ -1,0 +1,8 @@
+---
+
+- name: Install Elixir
+  apt:
+    name: elixir
+    state: present
+
+...

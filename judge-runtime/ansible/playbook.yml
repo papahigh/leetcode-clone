@@ -1,0 +1,62 @@
+---
+
+- hosts: all
+  become: true
+  become_user: root
+  gather_facts: false
+
+  vars:
+    runtime:
+      c: true
+      cpp: true
+      cs: true
+      dart: true
+      elixir: true
+      erlang: true
+      go: true
+      java: true
+      js: true
+      kotlin: true
+      php: true
+      python3: true
+      ruby: true
+      rust: true
+      swift: true
+      ts: true
+
+  roles:
+    - role: roles/isolate
+    - role: roles/runtime.c
+      when: runtime.c
+    - role: roles/runtime.cpp
+      when: runtime.cpp
+    - role: roles/runtime.cs
+      when: runtime.cs
+    - role: roles/runtime.dart
+      when: runtime.dart
+    - role: roles/runtime.elixir
+      when: runtime.elixir
+    - role: roles/runtime.erlang
+      when: runtime.erlang
+    - role: roles/runtime.go
+      when: runtime.go
+    - role: roles/runtime.java
+      when: runtime.java
+    - role: roles/runtime.js
+      when: runtime.js
+    - role: roles/runtime.kotlin
+      when: runtime.kotlin
+    - role: roles/runtime.php
+      when: runtime.php
+    - role: roles/runtime.python3
+      when: runtime.python3
+    - role: roles/runtime.ruby
+      when: runtime.ruby
+    - role: roles/runtime.rust
+      when: runtime.rust
+    - role: roles/runtime.swift
+      when: runtime.swift
+    - role: roles/runtime.ts
+      when: runtime.ts
+
+...

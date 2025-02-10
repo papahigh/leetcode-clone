@@ -1,0 +1,8 @@
+---
+
+- name: Install Erlang
+  apt:
+    name: erlang
+    state: present
+
+...

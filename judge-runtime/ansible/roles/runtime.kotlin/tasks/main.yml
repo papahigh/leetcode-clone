@@ -1,0 +1,34 @@
+---
+
+- name: Check if Java is installed
+  shell: command -v java
+  register: java_exists
+  ignore_errors: no
+
+- name: Download Kotlin Compiler
+  when: java_exists
+  get_url:
+    url: https://github.com/JetBrains/kotlin/releases/download/v2.1.10/kotlin-compiler-2.1.10.zip
+    dest: /tmp/kotlin.zip
+
+- name: Extract Kotlin to /usr/local/kotlin
+  when: java_exists
+  unarchive:
+    src: /tmp/kotlin.zip
+    dest: /usr/local
+    remote_src: yes
+
+- name: Link Kotlin binary
+  when: java_exists
+  file:
+    src: /usr/local/kotlinc/bin/kotlinc
+    dest: /usr/local/bin/kotlinc
+    state: link
+
+- name: Cleanup files
+  when: java_exists
+  file:
+    path: /tmp/kotlin.zip
+    state: absent
+
+...
