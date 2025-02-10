@@ -4,5 +4,6 @@
   apt:
     name: python3
     state: present
+    install_recommends: false
 
 ...

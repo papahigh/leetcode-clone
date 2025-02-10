@@ -6,5 +6,6 @@
       - rustc
       - cargo
     state: present
+    install_recommends: false
 
 ...

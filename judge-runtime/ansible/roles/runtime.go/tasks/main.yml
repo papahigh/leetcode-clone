@@ -4,5 +4,6 @@
   apt:
     name: golang
     state: present
+    install_recommends: false
 
 ...

@@ -4,5 +4,6 @@
   apt:
     name: elixir
     state: present
+    install_recommends: false
 
 ...

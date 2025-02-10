@@ -12,6 +12,7 @@
   apt:
     name: nodejs
     state: present
+    install_recommends: false
 
 - name: Cleanup files
   file:

@@ -4,5 +4,6 @@
   apt:
     name: erlang
     state: present
+    install_recommends: false
 
 ...

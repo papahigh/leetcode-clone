@@ -5,6 +5,7 @@
     name:
       - libncurses6
     state: present
+    install_recommends: false
 
 - name: Download Swift tarball
   get_url:

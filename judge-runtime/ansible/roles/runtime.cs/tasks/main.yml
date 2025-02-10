@@ -14,5 +14,6 @@
   apt:
     name: dotnet-sdk-9.0
     state: present
+    install_recommends: false
 
 ...

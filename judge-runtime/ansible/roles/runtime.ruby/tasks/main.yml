@@ -4,5 +4,6 @@
   apt:
     name: ruby
     state: present
+    install_recommends: false
 
 ...
