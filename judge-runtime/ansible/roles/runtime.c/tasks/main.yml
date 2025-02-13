@@ -35,4 +35,10 @@
     link: /usr/bin/clang++
     priority: 100
 
+- name: Copy C Profile
+  copy:
+    src: ./c.cfg
+    dest: /etc/runtime/c.cfg
+    mode: '0755'
+
 ...

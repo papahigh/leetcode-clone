@@ -36,4 +36,10 @@
     link: /usr/bin/clang++
     priority: 100
 
+- name: Copy C++ Profile
+  copy:
+    src: ./cpp.cfg
+    dest: /etc/runtime/cpp.cfg
+    mode: '0755'
+
 ...

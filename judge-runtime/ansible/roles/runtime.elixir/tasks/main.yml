@@ -6,4 +6,10 @@
     state: present
     install_recommends: false
 
+- name: Copy Elixir Profile
+  copy:
+    src: ./elixir.cfg
+    dest: /etc/runtime/elixir.cfg
+    mode: '0755'
+
 ...

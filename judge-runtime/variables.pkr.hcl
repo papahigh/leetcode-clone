@@ -1,6 +1,6 @@
 variable "judge_docker_base_image" {
   type    = string
-  default = "debian:bookworm"
+  default = "docker.io/papahigh/nsjail"
 }
 
 variable "judge_docker_image_name" {

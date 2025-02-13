@@ -14,6 +14,12 @@
     state: present
     install_recommends: false
 
+- name: Copy Node.js Profile
+  copy:
+    src: ./js.cfg
+    dest: /etc/runtime/js.cfg
+    mode: '0755'
+
 - name: Cleanup files
   file:
     path: /tmp/nodesource_setup.sh

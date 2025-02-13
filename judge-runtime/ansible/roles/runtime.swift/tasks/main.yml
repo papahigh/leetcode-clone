@@ -27,8 +27,14 @@
 - name: Link Swift binary
   file:
     src: /usr/local/swift/bin/swiftc
-    dest: /usr/local/bin/swiftc
+    dest: /usr/bin/swiftc
     state: link
+
+- name: Copy Swift Profile
+  copy:
+    src: ./swift.cfg
+    dest: /etc/runtime/swift.cfg
+    mode: '0755'
 
 - name: Cleanup files
   file:

@@ -1,7 +1,7 @@
 # judge-runtime
 
 This project provides a base Docker image designed to build an environment for competitive programming evaluation.
-It is based on Debian 12 and bundled with [Isolate](https://github.com/ioi/isolate) to securely execute code
+It is based on Debian 12 and bundled with [nsjail](https://github.com/google/nsjail/) to securely execute code
 submissions.
 
 ## Supported Languages

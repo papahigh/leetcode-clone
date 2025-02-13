@@ -9,6 +9,12 @@
   apt:
     deb: /tmp/jdk-21_linux-x64_bin.deb
 
+- name: Copy Java Profile
+  copy:
+    src: ./java.cfg
+    dest: /etc/runtime/java.cfg
+    mode: '0755'
+
 - name: Cleanup files
   file:
     path: /tmp/jdk-21_linux-x64_bin.deb

@@ -1,0 +1,19 @@
+---
+
+- name: Install dependencies
+  apt:
+    name:
+      - unzip
+      - gnupg
+      - git
+      - curl
+      - ca-certificates
+    state: present
+
+- name: Create runtime directory
+  file:
+    path: /etc/runtime
+    state: directory
+    mode: '0755'
+
+...

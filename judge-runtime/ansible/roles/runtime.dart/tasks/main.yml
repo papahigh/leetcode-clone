@@ -2,12 +2,18 @@
 
 - name: Download Dart SDK
   get_url:
-    url: https://storage.googleapis.com/dart-archive/channels/stable/release/latest/linux_packages/dart_3.6.2-1_amd64.deb
+    url: https://storage.googleapis.com/dart-archive/channels/stable/release/latest/linux_packages/dart_3.7.0-1_amd64.deb
     dest: /tmp/dart.deb
 
 - name: Install Dart
   apt:
     deb: /tmp/dart.deb
+
+- name: Copy Dart Profile
+  copy:
+    src: ./dart.cfg
+    dest: /etc/runtime/dart.cfg
+    mode: '0755'
 
 - name: Cleanup files
   file:

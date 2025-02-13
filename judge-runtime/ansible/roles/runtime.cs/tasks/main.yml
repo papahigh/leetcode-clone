@@ -16,4 +16,10 @@
     state: present
     install_recommends: false
 
+- name: Copy .NET Profile
+  copy:
+    src: ./cs.cfg
+    dest: /etc/runtime/cs.cfg
+    mode: '0755'
+
 ...

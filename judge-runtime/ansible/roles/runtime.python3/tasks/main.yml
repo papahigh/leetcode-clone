@@ -6,4 +6,10 @@
     state: present
     install_recommends: false
 
+- name: Copy Python3 Profile
+  copy:
+    src: ./python3.cfg
+    dest: /etc/runtime/python3.cfg
+    mode: '0755'
+
 ...

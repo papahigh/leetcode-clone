@@ -8,4 +8,10 @@
     state: present
     install_recommends: false
 
+- name: Copy Rust Profile
+  copy:
+    src: ./rust.cfg
+    dest: /etc/runtime/rust.cfg
+    mode: '0755'
+
 ...

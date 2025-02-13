@@ -22,8 +22,14 @@
   when: java_exists
   file:
     src: /usr/local/kotlinc/bin/kotlinc
-    dest: /usr/local/bin/kotlinc
+    dest: /usr/bin/kotlinc
     state: link
+
+- name: Copy Kotlin Profile
+  copy:
+    src: ./kotlin.cfg
+    dest: /etc/runtime/kotlin.cfg
+    mode: '0755'
 
 - name: Cleanup files
   when: java_exists

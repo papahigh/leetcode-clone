@@ -6,4 +6,10 @@
     state: present
     install_recommends: false
 
+- name: Copy Ruby Profile
+  copy:
+    src: ./ruby.cfg
+    dest: /etc/runtime/ruby.cfg
+    mode: '0755'
+
 ...

@@ -25,7 +25,7 @@
       ts: true
 
   roles:
-    - role: roles/isolate
+    - role: roles/initialize
     - role: roles/runtime.c
       when: runtime.c
     - role: roles/runtime.cpp

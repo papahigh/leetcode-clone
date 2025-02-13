@@ -11,7 +11,7 @@ packer {
   }
 }
 
-source "docker" "judge" {
+source "docker" "base-image" {
   image  = var.judge_docker_base_image
   commit = true
   changes = [
@@ -32,27 +32,29 @@ build {
   name = "judge-runtime-build"
 
   sources = [
-    "source.docker.judge"
+    "source.docker.base-image"
   ]
 
   provisioner "shell" {
     inline = [
       "apt-get update",
-      "apt-get install -y --no-install-recommends git curl ca-certificates python3 unzip"
+      "apt-get install -y --no-install-recommends python3 sudo"
     ]
   }
 
   provisioner "shell" {
     inline = [
       "groupadd --gid 1000 ${var.judge_user}",
-      "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/${var.judge_user} --shell /bin/bash ${var.judge_user}"
+      "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/${var.judge_user} --shell /bin/bash ${var.judge_user}",
+      "mkdir /usr/share/${var.judge_user}",
+      "chown -R ${var.judge_user}:${var.judge_user} /usr/share/${var.judge_user}",
     ]
   }
 
   provisioner "shell" {
     inline = [
-      "mkdir /usr/share/${var.judge_user}",
-      "chown -R ${var.judge_user}:${var.judge_user} /usr/share/${var.judge_user}",
+      "sudo usermod -aG sudo ${var.judge_user}",
+      "echo '${var.judge_user} ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/${var.judge_user}"
     ]
   }
 
