@@ -1,8 +1,12 @@
-package judge.common
+package judge
+
+import problem.Resources
 
 data class Feedback(
-    val submissionId: String,
+    val id: SubmissionID,
     val status: Status,
+    val output: String?,
+    val resources: Resources
 ) {
 
     enum class Status {
@@ -11,12 +15,8 @@ data class Feedback(
         TIME_LIMIT_EXCEEDED,
         MEMORY_LIMIT_EXCEEDED,
         WRONG_ANSWER,
-        SUCCESS,
+        ACCEPTED,
         ;
-
-        fun of(submission: Submission): Feedback {
-            return Feedback(submission.id, this)
-        }
     }
 
 }
