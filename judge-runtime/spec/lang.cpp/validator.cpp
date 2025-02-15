@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string evaluate(string s) {
+string swapFirstAndLastWordsValidator(string s) {
     vector<string> words;
     stringstream ss(s);
     string word;

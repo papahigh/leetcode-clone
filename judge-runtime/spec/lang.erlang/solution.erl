@@ -1,6 +1,7 @@
 -module(solution).
 -export([swap_first_and_last_words/1]).
 
+-spec swap_first_and_last_words(string()) -> string().
 swap_first_and_last_words(S) ->
     Words = string:tokens(S, " "),
     case Words of

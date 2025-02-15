@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-char* evaluate(const char *s) {
+char* swapFirstAndLastWordsValidator(const char *s) {
     char words[100][100];
     int wordCount = 0;
 

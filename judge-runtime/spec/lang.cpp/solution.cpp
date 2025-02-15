@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string swapFirstAndLastWords(string s) {
+string swapFirstAndLastWordsSolution(string s) {
     vector<string> words;
     stringstream ss(s);
     string word;
