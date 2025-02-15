@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* swapFirstAndLastWords(const char *s);
-char* evaluate(const char *s);
+char* swapFirstAndLastWordsSolution(const char *s);
+char* swapFirstAndLastWordsValidator(const char *s);
 
 int main() {
     FILE *file = fopen("input.txt", "r");
@@ -17,8 +17,8 @@ int main() {
     while (fgets(testCase, sizeof(testCase), file)) {
         testCase[strcspn(testCase, "\n")] = 0; // Remove newline
 
-        char *studentResult = swapFirstAndLastWords(testCase);
-        char *expectedResult = evaluate(testCase);
+        char *studentResult = swapFirstAndLastWordsSolution(testCase);
+        char *expectedResult = swapFirstAndLastWordsValidator(testCase);
 
         if (strcmp(studentResult, expectedResult) != 0) {
             printf("Test case failed: %s\n", testCase);

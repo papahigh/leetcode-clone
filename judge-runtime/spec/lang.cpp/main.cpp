@@ -6,8 +6,8 @@
 
 using namespace std;
 
-string swapFirstAndLastWords(string s);
-string evaluate(string s);
+string swapFirstAndLastWordsSolution(string s);
+string swapFirstAndLastWordsValidator(string s);
 
 int main() {
 
@@ -15,8 +15,8 @@ int main() {
     string testCase;
 
     while (getline(inputFile, testCase)) {
-        string actual = swapFirstAndLastWords(testCase);
-        string expected = evaluate(testCase);
+        string actual = swapFirstAndLastWordsSolution(testCase);
+        string expected = swapFirstAndLastWordsValidator(testCase);
 
         if (actual != expected) {
             cout << "Test case failed: " << testCase << endl;

@@ -1,14 +1,15 @@
 package problem
 
 typealias Markdown = String
-typealias ProblemID = Number
+typealias ProblemID = Int
 
 data class Problem(
     val id: ProblemID,
     val slug: String,
     val name: String,
     val body: Markdown,
-    val projects: Collection<Project>
+    val projects: Collection<Project>,
+    val testCases: ProjectFile,
 ) {
 
     fun getProject(lang: Language): Project? = projects.find { it.lang == lang }
@@ -20,30 +21,31 @@ data class Problem(
     )
 
     data class ProjectFiles(
-        val compile: ProjectFile,
-        var execute: ProjectFile,
-        val snippet: ProjectFile,
+        val compile: ProjectFile = ProjectFile("compile.sh", ""),
+        val execute: ProjectFile,
+        val solution: ProjectFile,
         val validator: ProjectFile,
+        val evaluator: ProjectFile,
         val resources: List<ProjectFile> = emptyList(),
     )
 
     data class ProjectFile(val name: String, val content: String)
 
-    enum class Language(val key: String, val ext: String = key) {
+    enum class Language(val key: String) {
         C("c"),
-        CPP("cpp", "cc"),
+        CPP("cpp"),
         CSHARP("cs"),
         DART("dart"),
-        ELIXIR("elixir", "exs"),
-        ERLANG("erlang", "erl"),
+        ELIXIR("elixir"),
+        ERLANG("erlang"),
         GO("go"),
         JAVA("java"),
         JAVA_SCRIPT("js"),
-        KOTLIN("kotlin", "kt"),
+        KOTLIN("kotlin"),
         PHP("php"),
-        PYTHON3("python3", "py"),
-        RUBY("ruby", "rb"),
-        RUST("rust", "rs"),
+        PYTHON3("python3"),
+        RUBY("ruby"),
+        RUST("rust"),
         SWIFT("swift"),
         TYPE_SCRIPT("ts"),
         ;
