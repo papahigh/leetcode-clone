@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-erlc main.erl
+erlc solution.erl validator.erl main.erl

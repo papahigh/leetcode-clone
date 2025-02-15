@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-rm -f main.beam
+rm -f ./*.beam
+rm -f ./*.dump

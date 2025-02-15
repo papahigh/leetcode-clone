@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-rm -f main.out
+rm -f ./main.out

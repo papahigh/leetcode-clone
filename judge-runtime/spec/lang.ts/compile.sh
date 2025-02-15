@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-tsc main.ts
+tsc -p tsconfig.json
