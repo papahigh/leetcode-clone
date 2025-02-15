@@ -1,4 +1,4 @@
-package problem.stub.problem1.projects
+package problem.stub.problem1
 
 import problem.Problem.*
 import problem.Resources

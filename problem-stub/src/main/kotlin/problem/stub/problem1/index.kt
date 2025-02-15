@@ -1,7 +1,6 @@
 package problem.stub.problem1
 
 import problem.Problem
-import problem.stub.problem1.projects.*
 
 
 val PROBLEM = Problem(
