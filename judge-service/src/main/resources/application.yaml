@@ -1,6 +1,27 @@
-ktor:
+micronaut:
   application:
-    modules:
-      - io.github.papahigh.ApplicationKt.module
-  deployment:
-    port: 8080
+    name: judge-service
+  server:
+    port: 8081
+  metrics:
+    enabled: true
+    export:
+      prometheus:
+        enabled: true
+        step: PT1M
+        descriptions: true
+
+endpoints:
+  prometheus:
+    enabled: true
+
+rabbitmq:
+  uri: ${RABBIT_URL:`amqp://localhost:5672`}
+  username: ${RABBIT_USERNAME:`rabbit`}
+  password: ${RABBIT_PASSWORD:`secret`}
+
+judge:
+  concurrency: 3
+  queue:
+    feedback: judge.feedback
+    submission: judge.submission

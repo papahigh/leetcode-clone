@@ -1,4 +1,13 @@
 [plugins]
 
 [libraries]
-jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version = "26.0.2" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version = "1.9.25" }
+kotlin-stdlib-jdk8 = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version = "1.9.25" }
+liquibase-slf4j = { group = "com.mattbertolini", name = "liquibase-slf4j", version = "5.0.0" }
+
+mapstruct-core = { group = "org.mapstruct", name = "mapstruct", version = "1.6.3" }
+mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", version = "1.6.3" }
+
+hypersistence-tsid = { group = "io.hypersistence", name = "hypersistence-tsid", version = "2.1.4" }
+
+testcontainers-rabbitmq = { group = "org.testcontainers", name = "rabbitmq", version = "1.20.4" }

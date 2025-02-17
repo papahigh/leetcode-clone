@@ -1,11 +1,14 @@
 package problem.stub
 
 import problem.Problem
+import problem.Problem.Language
+import problem.Problem.Project
 import problem.ProblemID
-import problem.ProblemService
+import problem.ProblemRepository
+import problem.ProjectRepository
 
 
-class ProblemServiceStub : ProblemService {
+class ProblemRepositoryStub() : ProblemRepository, ProjectRepository {
 
     override fun findAll(): Collection<Problem> {
         return allProblems
@@ -19,8 +22,12 @@ class ProblemServiceStub : ProblemService {
         return allProblems.find { it.slug == slug }
     }
 
+    override fun findProject(problemID: ProblemID, lang: Language): Project? {
+        return findById(problemID)?.projects?.find { it.lang == lang }
+    }
+
     private companion object {
-        var allProblems = listOf<Problem>(
+        val allProblems = listOf(
             problem.stub.problem1.PROBLEM,
         )
     }

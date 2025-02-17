@@ -2,7 +2,7 @@ package judge
 
 import problem.Resources
 
-data class Feedback(
+data class FeedbackEvent(
     val id: SubmissionID,
     val status: Status,
     val output: String?,

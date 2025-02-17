@@ -1,6 +1,6 @@
 package problem
 
-interface ProblemService {
+interface ProblemRepository {
 
     fun findAll(): Collection<Problem>
 

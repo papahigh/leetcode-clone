@@ -1,92 +1,111 @@
-import com.google.protobuf.gradle.id
-
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.4.2"
-    id("io.spring.dependency-management") version "1.1.7"
-    id("com.google.protobuf") version "0.9.4"
-    kotlin("plugin.jpa") version "1.9.25"
+    kotlin("jvm")
+    kotlin("kapt")
+    kotlin("plugin.allopen")
+    kotlin("plugin.jpa")
+    id("com.github.johnrengelman.shadow")
+    id("io.micronaut.application")
+    id("com.google.cloud.tools.jib")
+    id("io.micronaut.aot")
 }
 
-group = "io.github.papahigh"
-version = "0.0.1-SNAPSHOT"
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-}
-
-repositories {
-    mavenCentral()
-}
-
-extra["springGrpcVersion"] = "0.3.0"
+version = "1.0"
+group = "main.backend"
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.grpc:grpc-services")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.liquibase:liquibase-core")
-    implementation("org.springframework.grpc:spring-grpc-spring-boot-starter")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    implementation(libs.mapstruct.core)
+    kapt(libs.mapstruct.processor)
+
+    implementation(project(":judge"))
+    implementation(project(":problem"))
+    implementation(project(":problem-stub"))
+    implementation(libs.hypersistence.tsid)
+    kapt("io.micronaut.data:micronaut-data-processor")
+    kapt("io.micronaut:micronaut-http-validation")
+    kapt("io.micronaut.openapi:micronaut-openapi")
+    kapt("io.micronaut.serde:micronaut-serde-processor")
+    kapt("io.micronaut.servlet:micronaut-servlet-processor")
+    kapt("io.micronaut.validation:micronaut-validation-processor")
+    implementation("io.micronaut:micronaut-management")
+    implementation("io.micronaut.data:micronaut-data-jdbc")
+    implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
+    implementation("io.micronaut.liquibase:micronaut-liquibase")
+    implementation("io.micronaut.micrometer:micronaut-micrometer-core")
+    implementation("io.micronaut.micrometer:micronaut-micrometer-registry-prometheus")
+    implementation("io.micronaut.rabbitmq:micronaut-rabbitmq")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.validation:micronaut-validation")
+    implementation("jakarta.validation:jakarta.validation-api")
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlin.stdlib.jdk8)
+    compileOnly("io.micronaut:micronaut-http-client")
+    compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
+    compileOnly("jakarta.persistence:jakarta.persistence-api")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    runtimeOnly(libs.liquibase.slf4j)
     runtimeOnly("com.mysql:mysql-connector-j")
-    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("org.springframework.grpc:spring-grpc-test")
-    testImplementation("org.springframework.security:spring-security-test")
+    runtimeOnly("org.yaml:snakeyaml")
+    testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mysql")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.testcontainers:testcontainers")
+    testImplementation(libs.testcontainers.rabbitmq)
 }
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.grpc:spring-grpc-dependencies:${property("springGrpcVersion")}")
-    }
+application {
+    mainClass = "main.backend.ApplicationKt"
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("21")
 }
 
 kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
-
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc"
-    }
-    plugins {
-        id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java"
-        }
-    }
-    generateProtoTasks {
-        all().forEach {
-            it.plugins {
-                id("grpc") {
-                    option("jakarta_omit")
-                    option("@generated=omit")
-                }
-            }
-        }
-    }
+    jvmToolchain(21)
 }
 
 allOpen {
+    annotation("io.micronaut.http.annotation.Controller")
+    annotation("io.micronaut.rabbitmq.annotation.RabbitListener")
     annotation("jakarta.persistence.Entity")
     annotation("jakarta.persistence.MappedSuperclass")
     annotation("jakarta.persistence.Embeddable")
+    annotation("jakarta.inject.Singleton")
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+tasks {
+    jib {
+        from { image = "openjdk:21-slim-bookworm" }
+    }
+
+    dockerfileNative { jdkVersion = "21" }
+
+    graalvmNative { toolchainDetection = false }
+
+    named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") { jdkVersion = "21" }
+}
+
+micronaut {
+    runtime("jetty")
+    testRuntime("kotest5")
+    processing {
+        incremental(true)
+        annotations("main.backend.*")
+    }
+    aot {
+        // Please review carefully the optimizations enabled below
+        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+        replaceLogbackXml = true
+    }
 }

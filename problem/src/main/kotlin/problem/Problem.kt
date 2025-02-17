@@ -12,8 +12,6 @@ data class Problem(
     val testCases: ProjectFile,
 ) {
 
-    fun getProject(lang: Language): Project? = projects.find { it.lang == lang }
-
     data class Project(
         val lang: Language,
         val files: ProjectFiles,
@@ -31,7 +29,7 @@ data class Problem(
 
     data class ProjectFile(val name: String, val content: String)
 
-    enum class Language(val key: String) {
+    enum class Language(val runtimeKey: String) {
         C("c"),
         CPP("cpp"),
         CSHARP("cs"),

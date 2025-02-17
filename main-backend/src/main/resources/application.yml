@@ -1,0 +1,40 @@
+micronaut:
+  application:
+    name: main-backend
+  metrics:
+    enabled: true
+    export:
+      prometheus:
+      enabled: true
+      descriptions: true
+      step: PT1M
+
+endpoints:
+  prometheus:
+    sensitive: false
+
+datasources:
+  default:
+    url: ${DATASOURCE_URL:`jdbc:mysql://localhost:3306/main_backend`}
+    username: ${DATASOURCE_USERNAME:`main_backend`}
+    password: ${DATASOURCE_PASSWORD:`main_backend`}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    schema-generate: none
+    db-type: mysql
+    dialect: MYSQL
+
+liquibase:
+  datasources:
+     default:
+       enabled: true
+       changeLog: db/liquibase-changelog.xml
+
+rabbitmq:
+  uri: ${RABBIT_URL:`amqp://localhost:5672`}
+  username: ${RABBIT_USERNAME:`rabbit`}
+  password: ${RABBIT_PASSWORD:`secret`}
+
+judge:
+  queue:
+    feedback: judge.feedback
+    submission: judge.submission
