@@ -1,0 +1,65 @@
+mysql:
+  enabled: true
+  initdbScripts:
+    init_db.sql: |
+      CREATE DATABASE main_backend;
+      CREATE USER main_backend@'%' IDENTIFIED BY 'main_backend';
+      GRANT ALL PRIVILEGES ON main_backend.* TO main_backend@'%';
+
+rabbitmq:
+  enabled: true
+  auth:
+    username: rabbit
+    password: secret
+
+judge-service:
+  enabled: false
+  image:
+    pullPolicy: Never
+  resources:
+    limits:
+      memory: 1024Mi
+      cpu: 4
+    requests:
+      memory: 1024Mi
+      cpu: 4
+  env:
+    - name: RABBIT_URL
+      value: amqp://environment-rabbitmq:5672
+    - name: RABBIT_USERNAME
+      value: rabbit
+    - name: RABBIT_PASSWORD
+      value: secret
+
+main-backend:
+  enabled: false
+  image:
+    pullPolicy: Never
+  resources:
+    limits:
+      memory: 256Mi
+      cpu: 2
+    requests:
+      memory: 256Mi
+      cpu: 2
+  env:
+    - name: DATASOURCE_URL
+      value: jdbc:mysql://environment-mysql:3306/main_backend
+    - name: DATASOURCE_USERNAME
+      value: main_backend
+    - name: DATASOURCE_PASSWORD
+      value: main_backend
+    - name: RABBIT_URL
+      value: amqp://environment-rabbitmq:5672
+    - name: RABBIT_USERNAME
+      value: rabbit
+    - name: RABBIT_PASSWORD
+      value: secret
+
+main-frontend:
+  enabled: false
+  image:
+    pullPolicy: Never
+  env:
+    - name: API_BASE_URL
+      value: http://leetcode-clone-main-backend:8080

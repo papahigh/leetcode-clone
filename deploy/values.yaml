@@ -1,0 +1,20 @@
+mysql:
+  enabled: false
+
+rabbitmq:
+  enabled: false
+
+main-frontend:
+  enabled: true
+  image:
+    pullPolicy: Always
+
+main-backend:
+  enabled: true
+  image:
+    pullPolicy: Always
+
+judge-service:
+  enabled: true
+  image:
+    pullPolicy: Always

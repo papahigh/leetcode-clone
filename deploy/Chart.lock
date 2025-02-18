@@ -1,0 +1,18 @@
+dependencies:
+- name: judge-service
+  repository: ""
+  version: 1.0.0
+- name: main-backend
+  repository: ""
+  version: 1.0.0
+- name: main-frontend
+  repository: ""
+  version: 1.0.0
+- name: mysql
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.2.2
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: 15.3.1
+digest: sha256:8bc8bc82fd7e28331a5f95a74cd72ca2cab9379e965461db5519a27c9a68b7c4
+generated: "2025-02-18T11:59:50.940982675+03:00"

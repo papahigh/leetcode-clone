@@ -2,7 +2,7 @@ micronaut:
   application:
     name: judge-service
   server:
-    port: 8081
+    host: "0.0.0.0"
   metrics:
     enabled: true
     export:
@@ -17,13 +17,16 @@ micronaut:
       n-threads: ${judge.concurrency}
 
 endpoints:
+  health:
+    details-visible: anonymous
   prometheus:
+    sensitive: false
     enabled: true
 
 rabbitmq:
   uri: ${RABBIT_URL:`amqp://localhost:5672`}
-  username: ${RABBIT_USERNAME:`rabbit`}
-  password: ${RABBIT_PASSWORD:`secret`}
+  username: ${RABBIT_USERNAME:`guest`}
+  password: ${RABBIT_PASSWORD:`guest`}
 
 judge:
   concurrency: 1

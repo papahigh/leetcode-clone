@@ -1,6 +1,8 @@
 micronaut:
   application:
     name: main-backend
+  server:
+    host: "0.0.0.0"
   metrics:
     enabled: true
     export:
@@ -10,8 +12,11 @@ micronaut:
       step: PT1M
 
 endpoints:
+  health:
+    details-visible: anonymous
   prometheus:
     sensitive: false
+    enabled: true
 
 datasources:
   default:
@@ -31,8 +36,8 @@ liquibase:
 
 rabbitmq:
   uri: ${RABBIT_URL:`amqp://localhost:5672`}
-  username: ${RABBIT_USERNAME:`rabbit`}
-  password: ${RABBIT_PASSWORD:`secret`}
+  username: ${RABBIT_USERNAME:`guest`}
+  password: ${RABBIT_PASSWORD:`guest`}
 
 judge:
   queue:
