@@ -45,9 +45,9 @@ build {
   provisioner "shell" {
     inline = [
       "groupadd --gid 1000 ${var.judge_user}",
-      "useradd -M --uid 1000 --gid 1000 --home-dir /usr/share/${var.judge_user} --shell /bin/bash ${var.judge_user}",
-      "mkdir /usr/share/${var.judge_user}",
-      "chown -R ${var.judge_user}:${var.judge_user} /usr/share/${var.judge_user}",
+      "useradd -M --uid 1000 --gid 1000 --home-dir /home/${var.judge_user} --shell /bin/bash ${var.judge_user}",
+      "mkdir /home/${var.judge_user}",
+      "chown -R ${var.judge_user}:${var.judge_user} /home/${var.judge_user}",
     ]
   }
 
