@@ -19,6 +19,7 @@ class JudgeListener(
     @Queue(
         value = "\${judge.queue.submission}",
         numberOfConsumers = "\${judge.concurrency}",
+        executor = "judge-listener",
     )
     @Counted("judge_service.submission_received")
     fun onSubmission(event: SubmissionEvent) {
@@ -29,6 +30,7 @@ class JudgeListener(
 
     @RabbitClient
     interface FeedbackSender {
+
         @Binding("\${judge.queue.feedback}")
         @Counted("judge_service.feedback_sent")
         fun send(event: FeedbackEvent)

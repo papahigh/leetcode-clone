@@ -1,0 +1,84 @@
+package judge.service
+
+import com.rabbitmq.client.Channel
+import io.kotest.assertions.nondeterministic.eventually
+import io.kotest.assertions.nondeterministic.eventuallyConfig
+import io.kotest.matchers.shouldBe
+import io.micronaut.context.annotation.Requires
+import io.micronaut.messaging.annotation.MessageBody
+import io.micronaut.rabbitmq.annotation.Binding
+import io.micronaut.rabbitmq.annotation.Queue
+import io.micronaut.rabbitmq.annotation.RabbitClient
+import io.micronaut.rabbitmq.annotation.RabbitListener
+import io.micronaut.rabbitmq.connect.ChannelInitializer
+import io.micronaut.test.extensions.kotest5.annotation.MicronautTest
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
+import org.slf4j.LoggerFactory
+import java.lang.Thread.sleep
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.time.Duration.Companion.seconds
+
+
+@MicronautTest
+class RabbitMQSpec() : IntegrationSpec() {
+
+    @Inject
+    lateinit var producer: Producer
+
+    @Inject
+    lateinit var consumer: Consumer
+
+    init {
+        describe("RabbitMQ Listener") {
+            it("should handle messages concurrently") {
+                val config = eventuallyConfig {
+                    duration = 2.seconds
+                    initialDelay = 1.seconds
+                }
+
+                repeat(10) { producer.send("message $it") }
+
+                eventually(config) {
+                    consumer.messages.get() shouldBe 10
+                }
+            }
+        }
+    }
+
+    @Requires(property = "spec.name", value = "RabbitMQSpec")
+    @RabbitClient
+    interface Producer {
+        @Binding("rabbitmq.spec.queue")
+        fun send(message: String)
+    }
+
+    @Requires(property = "spec.name", value = "RabbitMQSpec")
+    @RabbitListener
+    class Consumer {
+        val messages = AtomicInteger()
+
+        @Queue(
+            value = "rabbitmq.spec.queue",
+            executor = "rabbitmq-listener",
+            numberOfConsumers = "5",
+        )
+        fun onMessage(@MessageBody message: String) {
+            log.info("Received message: {}", message)
+            sleep(1000)
+            messages.incrementAndGet()
+        }
+    }
+
+    @Singleton
+    @Requires(property = "spec.name", value = "RabbitMQSpec")
+    class RabbitMQConfig : ChannelInitializer() {
+        override fun initialize(channel: Channel, name: String?) {
+            channel.queueDeclare("rabbitmq.spec.queue", true, false, false, null)
+        }
+    }
+
+    companion object {
+        val log = LoggerFactory.getLogger(RabbitMQSpec::class.java)!!
+    }
+}

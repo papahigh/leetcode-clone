@@ -1,0 +1,7 @@
+micronaut:
+  server:
+    port: ${random.port}
+  executors:
+    rabbitmq-listener:
+      type: fixed
+      n-threads: 5

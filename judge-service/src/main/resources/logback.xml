@@ -4,8 +4,9 @@
             <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern>
         </encoder>
     </appender>
-    <logger id="judge.service" level="trace"/>
-    <root level="trace">
+    <logger name="io.micronaut.rabbitmq" level="trace"/>
+    <logger name="judge.service" level="trace"/>
+    <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

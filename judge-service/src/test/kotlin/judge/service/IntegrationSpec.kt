@@ -16,7 +16,8 @@ abstract class IntegrationSpec() : DescribeSpec(), TestPropertyProvider {
     override fun getProperties() = mapOf(
         "rabbitmq.uri" to rabbit.amqpUrl,
         "rabbitmq.username" to rabbit.adminUsername,
-        "rabbitmq.password" to rabbit.adminPassword
+        "rabbitmq.password" to rabbit.adminPassword,
+        "spec.name" to this::class.simpleName,
     )
 
     private companion object {

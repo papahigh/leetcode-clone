@@ -11,6 +11,11 @@ micronaut:
         step: PT1M
         descriptions: true
 
+  executors:
+    judge-listener:
+      type: fixed
+      n-threads: ${judge.concurrency}
+
 endpoints:
   prometheus:
     enabled: true
@@ -21,7 +26,7 @@ rabbitmq:
   password: ${RABBIT_PASSWORD:`secret`}
 
 judge:
-  concurrency: 3
+  concurrency: 1
   queue:
     feedback: judge.feedback
     submission: judge.submission
