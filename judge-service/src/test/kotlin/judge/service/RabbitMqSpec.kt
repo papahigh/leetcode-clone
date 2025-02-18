@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.seconds
 
 
 @MicronautTest
-class RabbitMQSpec() : IntegrationSpec() {
+class RabbitMqSpec() : IntegrationSpec() {
 
     @Inject
     lateinit var producer: Producer
@@ -50,7 +50,7 @@ class RabbitMQSpec() : IntegrationSpec() {
         }
     }
 
-    @Requires(property = "spec.name", value = "RabbitMQSpec")
+    @Requires(property = "spec.name", value = "RabbitMqSpec")
     @Factory
     class Config {
         @Bean
@@ -58,14 +58,14 @@ class RabbitMQSpec() : IntegrationSpec() {
         fun executor() = Executors.newFixedThreadPool(5)!!
     }
 
-    @Requires(property = "spec.name", value = "RabbitMQSpec")
+    @Requires(property = "spec.name", value = "RabbitMqSpec")
     @RabbitClient
     interface Producer {
         @Binding("rabbitmq.spec.queue")
         fun send(message: String)
     }
 
-    @Requires(property = "spec.name", value = "RabbitMQSpec")
+    @Requires(property = "spec.name", value = "RabbitMqSpec")
     @RabbitListener
     class Consumer {
         val messages = AtomicInteger()
@@ -83,7 +83,7 @@ class RabbitMQSpec() : IntegrationSpec() {
     }
 
     @Singleton
-    @Requires(property = "spec.name", value = "RabbitMQSpec")
+    @Requires(property = "spec.name", value = "RabbitMqSpec")
     class RabbitMQConfig : ChannelInitializer() {
         override fun initialize(channel: Channel, name: String?) {
             channel.queueDeclare("rabbitmq.spec.queue", true, false, false, null)
@@ -91,6 +91,6 @@ class RabbitMQSpec() : IntegrationSpec() {
     }
 
     companion object {
-        val log = LoggerFactory.getLogger(RabbitMQSpec::class.java)!!
+        val log = LoggerFactory.getLogger(RabbitMqSpec::class.java)!!
     }
 }
