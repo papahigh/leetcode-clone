@@ -4,6 +4,8 @@ import com.rabbitmq.client.Channel
 import io.kotest.assertions.nondeterministic.eventually
 import io.kotest.assertions.nondeterministic.eventuallyConfig
 import io.kotest.matchers.shouldBe
+import io.micronaut.context.annotation.Bean
+import io.micronaut.context.annotation.Factory
 import io.micronaut.context.annotation.Requires
 import io.micronaut.messaging.annotation.MessageBody
 import io.micronaut.rabbitmq.annotation.Binding
@@ -13,9 +15,11 @@ import io.micronaut.rabbitmq.annotation.RabbitListener
 import io.micronaut.rabbitmq.connect.ChannelInitializer
 import io.micronaut.test.extensions.kotest5.annotation.MicronautTest
 import jakarta.inject.Inject
+import jakarta.inject.Named
 import jakarta.inject.Singleton
 import org.slf4j.LoggerFactory
 import java.lang.Thread.sleep
+import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.time.Duration.Companion.seconds
 
@@ -47,6 +51,14 @@ class RabbitMQSpec() : IntegrationSpec() {
     }
 
     @Requires(property = "spec.name", value = "RabbitMQSpec")
+    @Factory
+    class Config {
+        @Bean
+        @Named("rabbit-consumer")
+        fun executor() = Executors.newFixedThreadPool(5)!!
+    }
+
+    @Requires(property = "spec.name", value = "RabbitMQSpec")
     @RabbitClient
     interface Producer {
         @Binding("rabbitmq.spec.queue")
@@ -60,7 +72,7 @@ class RabbitMQSpec() : IntegrationSpec() {
 
         @Queue(
             value = "rabbitmq.spec.queue",
-            executor = "rabbitmq-listener",
+            executor = "rabbit-consumer",
             numberOfConsumers = "5",
         )
         fun onMessage(@MessageBody message: String) {
