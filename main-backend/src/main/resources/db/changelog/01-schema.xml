@@ -32,4 +32,19 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="rename_output_column" author="Nikola P">
+        <renameColumn
+                tableName="submission"
+                oldColumnName="output"
+                newColumnName="stdout"
+                columnDataType="TEXT"
+        />
+    </changeSet>
+
+    <changeSet id="add_stderr_column" author="Nikola P">
+        <addColumn tableName="submission">
+            <column name="stderr" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

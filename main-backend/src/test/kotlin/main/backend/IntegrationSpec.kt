@@ -10,7 +10,7 @@ import org.testcontainers.utility.DockerImageName
 
 abstract class IntegrationSpec() : DescribeSpec(), TestPropertyProvider {
 
-    object ProjectConfig : AbstractProjectConfig() {
+    class ProjectConfig : AbstractProjectConfig() {
         override fun extensions() = listOf(MicronautKotest5Extension)
     }
 
