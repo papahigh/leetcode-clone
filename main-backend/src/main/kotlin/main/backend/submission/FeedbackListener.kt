@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory.getLogger
 
 @RabbitListener
 class FeedbackListener(
-    private val mapper: FeedbackMapper,
     private val repository: SubmissionRepository,
 ) {
 
@@ -19,7 +18,7 @@ class FeedbackListener(
     @Transactional
     fun onFeedback(event: FeedbackEvent) {
         log.debug("Received feedback for: {}", event.id)
-        repository.updateFeedbackById(event.id, mapper.map(event))
+        repository.updateFeedback(event)
     }
 
     private companion object {

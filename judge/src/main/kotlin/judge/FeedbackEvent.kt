@@ -5,12 +5,13 @@ import problem.Resources
 data class FeedbackEvent(
     val id: SubmissionID,
     val status: Status,
-    val stdout: String,
-    val stderr: String,
-    val resources: Resources
+    val stdout: String?,
+    val stderr: String?,
+    val resources: Resources?
 ) {
 
     enum class Status {
+        EVALUATION_PENDING,
         COMPILATION_ERROR,
         RUNTIME_ERROR,
         TIME_LIMIT_EXCEEDED,

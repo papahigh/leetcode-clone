@@ -3,9 +3,6 @@ micronaut:
     name: main-backend
   server:
     host: "0.0.0.0"
-  serde:
-    serialization:
-      inclusion: non_null
   metrics:
     enabled: true
     export:

@@ -18,7 +18,7 @@ class FeedbackProviderImpl : FeedbackProvider {
 
     override fun ofCompileResult(event: SubmissionEvent, result: CommandResult): FeedbackEvent {
         val stderr = FeedbackParser.compilation(result.stderr)
-        return createFeedback(event, result, status = COMPILATION_ERROR, stdout = "", stderr = stderr  ?: "")
+        return createFeedback(event, result, status = COMPILATION_ERROR, stdout = null, stderr = stderr)
     }
 
     override fun ofExecuteResult(event: SubmissionEvent, result: CommandResult): FeedbackEvent {
@@ -51,8 +51,8 @@ class FeedbackProviderImpl : FeedbackProvider {
     private fun createFeedback(
         event: SubmissionEvent,
         result: CommandResult,
-        stdout: String = result.stdout,
-        stderr: String = "",
+        stdout: String? = result.stdout,
+        stderr: String? = null,
         status: Status = RUNTIME_ERROR,
         resources: Resources = Resources.NOT_AVAILABLE,
     ) = FeedbackEvent(id = event.id, status = status, stdout = stdout, stderr = stderr, resources = resources)

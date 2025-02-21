@@ -4,8 +4,11 @@ import io.micronaut.data.annotation.DateCreated
 import io.micronaut.data.annotation.DateUpdated
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.annotation.Nullable
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
 import jakarta.persistence.EnumType.STRING
+import jakarta.persistence.Enumerated
+import jakarta.persistence.Table
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import judge.FeedbackEvent.Status
@@ -32,6 +35,10 @@ class SubmissionModel : IdentifiableModel() {
     lateinit var updatedAt: LocalDateTime
 
     @NotNull
+    @Column(name = "problem_id", nullable = false, updatable = false)
+    var problemId: ProblemID? = null
+
+    @NotNull
     @Enumerated(STRING)
     @Column(name = "lang", nullable = false, updatable = false, columnDefinition = "VARCHAR(255)")
     lateinit var lang: Language
@@ -40,24 +47,10 @@ class SubmissionModel : IdentifiableModel() {
     @Column(name = "code", nullable = false, updatable = false, columnDefinition = "TEXT")
     lateinit var code: SolutionCode
 
-    @NotNull
-    @Column(name = "problem_id", nullable = false, updatable = false)
-    var problemId: ProblemID? = null
-
-    @Nullable
-    @Embedded
-    var feedback: FeedbackModel? = null
-
-}
-
-@Serdeable
-@Embeddable
-class FeedbackModel {
-
     @Nullable
     @Enumerated(STRING)
-    @Column(name = "status", columnDefinition = "VARCHAR(255)")
-    var status: Status? = null
+    @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(255)")
+    lateinit var status: Status
 
     @Nullable
     @Column(name = "stdout", columnDefinition = "TEXT")

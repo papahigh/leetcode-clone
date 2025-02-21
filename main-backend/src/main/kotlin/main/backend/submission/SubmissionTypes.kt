@@ -24,14 +24,9 @@ data class SubmissionDetails(
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
     var problemId: ProblemID,
-    val feedback: FeedbackDetails?,
+    val status: Status,
     val lang: Language,
-    val code: SolutionCode
-)
-
-@Serdeable
-data class FeedbackDetails(
-    val status: Status?,
+    val code: SolutionCode,
     val stdout: String?,
     val stderr: String?,
     val time: Int?,
