@@ -18,7 +18,7 @@ val RUBY_PROJECT = Project(
                 def swap_first_and_last_words_solution(s)
                 
                 end
-                """
+                """.trimIndent()
         ),
         validator = ProjectFile(
             name = "validator.rb",
@@ -36,7 +36,7 @@ val RUBY_PROJECT = Project(
                 
                   return words.join(' ')
                 end
-                """
+                """.trimIndent()
         ),
         evaluator = ProjectFile(
             name = "main.rb",
@@ -66,7 +66,7 @@ val RUBY_PROJECT = Project(
                 warn "[JUDGE_FEEDBACK]"
                 warn "ACCEPTED"
                 warn "[JUDGE_FEEDBACK]"
-                """
+                """.trimIndent()
         ),
     ),
     execute = ProjectAction(

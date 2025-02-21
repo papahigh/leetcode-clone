@@ -18,7 +18,7 @@ val RUST_PROJECT = Project(
                 pub fn swap_first_and_last_words(s: &str) -> String {
                 
                 }
-                """
+                """.trimIndent()
         ),
         validator = ProjectFile(
             name = "validator.rs",
@@ -37,7 +37,7 @@ val RUST_PROJECT = Project(
                 
                     words.join(" ")
                 }
-                """
+                """.trimIndent()
         ),
         evaluator = ProjectFile(
             name = "main.rs",

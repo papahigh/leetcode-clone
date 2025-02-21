@@ -16,8 +16,8 @@ val PYTHON3_PROJECT = Project(
                 // language=python
                 """
                 def swapFirstAndLastWords(s: str) -> str:
-
-                """
+                
+                """.trimIndent()
         ),
         validator = ProjectFile(
             name = "validator.py",
@@ -33,7 +33,7 @@ val PYTHON3_PROJECT = Project(
                     words[0], words[-1] = words[-1], words[0]
                 
                     return " ".join(words)
-                """
+                """.trimIndent()
         ),
         evaluator = ProjectFile(
             name = "main.py",
@@ -63,7 +63,7 @@ val PYTHON3_PROJECT = Project(
                 print("[JUDGE_FEEDBACK]", file=sys.stderr)
                 print("ACCEPTED", file=sys.stderr)
                 print("[JUDGE_FEEDBACK]", file=sys.stderr)
-                """
+                """.trimIndent()
         ),
     ),
     execute = ProjectAction(
@@ -74,7 +74,7 @@ val PYTHON3_PROJECT = Project(
                 """
                 #!/usr/bin/env bash
                 
-                python3 Main.py
+                python3 main.py
                 """.trimIndent()
         ),
         resources = Resources(time = 3, memory = 75000)

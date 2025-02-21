@@ -56,7 +56,7 @@ val C_PROJECT = Project(
                     strcpy(words[wordCount - 1], temp);
                 
                     char *result = malloc(256);
-                    result[0] = '\\0';
+                    result[0] = '\0';
                     for (int i = 0; i < wordCount; i++) {
                         if (i > 0) strcat(result, " ");
                         strcat(result, words[i]);
