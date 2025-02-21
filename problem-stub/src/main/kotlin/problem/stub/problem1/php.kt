@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.PHP
 import problem.Resources
 
 
 val PHP_PROJECT = Project(
-    lang = Language.PHP,
+    lang = PHP,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.php",
@@ -68,19 +71,19 @@ val PHP_PROJECT = Project(
                     ${'$'}expected = ${'$'}validator->swapFirstAndLastWords(${'$'}testCase);
                 
                     if (${'$'}actual !== ${'$'}expected) {
-                        fwrite(STDERR, "[JUDGE_FEEDBACK]\\n");
-                        fwrite(STDERR, "WRONG_ANSWER\\n");
-                        fwrite(STDERR, "Input: " . ${'$'}testCase . "\\n");
-                        fwrite(STDERR, "Output: " . ${'$'}actual . "\\n");
-                        fwrite(STDERR, "Expected: " . ${'$'}expected . "\\n");
-                        fwrite(STDERR, "[JUDGE_FEEDBACK]\\n");
-                        exit(405);
+                        fwrite(STDERR, "[JUDGE_FEEDBACK]\n");
+                        fwrite(STDERR, "WRONG_ANSWER\n");
+                        fwrite(STDERR, "Input: " . ${'$'}testCase . "\n");
+                        fwrite(STDERR, "Output: " . ${'$'}actual . "\n");
+                        fwrite(STDERR, "Expected: " . ${'$'}expected . "\n");
+                        fwrite(STDERR, "[JUDGE_FEEDBACK]\n");
+                        exit(65);
                     }
                 }
                 
-                fwrite(STDERR, "[JUDGE_FEEDBACK]\\n");
-                fwrite(STDERR, "ACCEPTED\\n");
-                fwrite(STDERR, "[JUDGE_FEEDBACK]\\n");
+                fwrite(STDERR, "[JUDGE_FEEDBACK]\n");
+                fwrite(STDERR, "ACCEPTED\n");
+                fwrite(STDERR, "[JUDGE_FEEDBACK]\n");
                 """.trimIndent()
         ),
     ),

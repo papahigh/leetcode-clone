@@ -25,7 +25,7 @@ int main() {
             cerr << "Output: " << actual << endl;
             cerr << "Expected: " << expected << endl;
             cerr << "[JUDGE_FEEDBACK]" << endl;
-            return 405;
+            return 65;
         }
     }
 

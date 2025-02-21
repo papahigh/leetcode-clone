@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.KOTLIN
 import problem.Resources
 
 
 val KOTLIN_PROJECT = Project(
-    lang = Language.KOTLIN,
+    lang = KOTLIN,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.kt",
@@ -63,7 +66,7 @@ val KOTLIN_PROJECT = Project(
                             System.err.println("Output: " + actual)
                             System.err.println("Expected: " + expected)
                             System.err.println("[JUDGE_FEEDBACK]")
-                            System.exit(405)
+                            System.exit(65)
                         }
                     }
                 

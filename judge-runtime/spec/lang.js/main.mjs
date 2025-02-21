@@ -13,7 +13,7 @@ fs.readFileSync('input.txt', 'utf-8').split('\n').forEach(testCase => {
         console.error('Output: ' + actual);
         console.error('Expected: ' + expected);
         console.error('[JUDGE_FEEDBACK]');
-        process.exit(405);
+        process.exit(65);
     }
 });
 

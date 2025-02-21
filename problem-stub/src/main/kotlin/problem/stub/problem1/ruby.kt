@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.RUBY
 import problem.Resources
 
 
 val RUBY_PROJECT = Project(
-    lang = Language.RUBY,
+    lang = RUBY,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.rb",
@@ -56,7 +59,7 @@ val RUBY_PROJECT = Project(
                     warn "Output: #{actual}"
                     warn "Expected: #{expected}"
                     warn "[JUDGE_FEEDBACK]"
-                    exit(405)
+                    exit(65)
                   end
                 end
                 

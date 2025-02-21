@@ -18,7 +18,7 @@ foreach ($input as $testCase) {
         fwrite(STDERR, "Output: " . $actual . "\n");
         fwrite(STDERR, "Expected: " . $expected . "\n");
         fwrite(STDERR, "[JUDGE_FEEDBACK]\n");
-        exit(405);
+        exit(65);
     }
 }
 

@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.CSHARP
 import problem.Resources
 
 
 val CS_PROJECT = Project(
-    lang = Language.CSHARP,
+    lang = CSHARP,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.cs",
@@ -67,7 +70,7 @@ val CS_PROJECT = Project(
                                 Console.Error.WriteLine(${'$'}"Output: {actual}");
                                 Console.Error.WriteLine(${'$'}"Expected: {expected}");
                                 Console.Error.WriteLine("[JUDGE_FEEDBACK]");
-                                Environment.Exit(405);
+                                Environment.Exit(65);
                             }
                         }
                 

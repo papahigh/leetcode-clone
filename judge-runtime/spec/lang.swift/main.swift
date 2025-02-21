@@ -24,7 +24,7 @@ if let input = try? String(contentsOfFile: "input.txt") {
             stderr("Output: \(actual)")
             stderr("Expected: \(expected)")
             stderr("[JUDGE_FEEDBACK]")
-            exit(405)
+            exit(65)
         }
     }
 }

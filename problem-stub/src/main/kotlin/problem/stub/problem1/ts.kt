@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.TYPE_SCRIPT
 import problem.Resources
 
 
 val TS_PROJECT = Project(
-    lang = Language.TYPE_SCRIPT,
+    lang = TYPE_SCRIPT,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.ts",
@@ -53,7 +56,7 @@ val TS_PROJECT = Project(
                 const validator = new Validator();
                 
                 // @ts-ignore
-                fs.readFileSync('input.txt', 'utf-8').split('\\n').forEach((testCase: string) => {
+                fs.readFileSync('input.txt', 'utf-8').split('\n').forEach((testCase: string) => {
                     const actual = solution.swapFirstAndLastWords(testCase);
                     const expected = validator.swapFirstAndLastWords(testCase);
                 
@@ -65,7 +68,7 @@ val TS_PROJECT = Project(
                         console.error('Expected: ' + expected);
                         console.error('[JUDGE_FEEDBACK]');
                         // @ts-ignore
-                        process.exit(405);
+                        process.exit(65);
                     }
                 });
                 

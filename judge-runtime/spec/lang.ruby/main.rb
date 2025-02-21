@@ -14,7 +14,7 @@ File.readlines('input.txt').each do |testCase|
     warn "Output: #{actual}"
     warn "Expected: #{expected}"
     warn "[JUDGE_FEEDBACK]"
-    exit(405)
+    exit(65)
   end
 end
 

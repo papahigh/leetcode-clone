@@ -17,7 +17,7 @@ class Program {
                 Console.Error.WriteLine($"Output: {actual}");
                 Console.Error.WriteLine($"Expected: {expected}");
                 Console.Error.WriteLine("[JUDGE_FEEDBACK]");
-                Environment.Exit(405);
+                Environment.Exit(65);
             }
         }
 

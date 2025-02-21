@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.RUST
 import problem.Resources
 
 
 val RUST_PROJECT = Project(
-    lang = Language.RUST,
+    lang = RUST,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.rs",
@@ -60,7 +63,7 @@ val RUST_PROJECT = Project(
                             eprintln!("Output: {}", actual);
                             eprintln!("Expected: {}", expected);
                             eprintln!("[JUDGE_FEEDBACK]");
-                            std::process::exit(405);
+                            std::process::exit(65);
                         }
                     }
                 

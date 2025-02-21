@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.JAVA
 import problem.Resources
 
 
 val JAVA_PROJECT = Project(
-    lang = Language.JAVA,
+    lang = JAVA,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "Solution.java",
@@ -72,7 +75,7 @@ val JAVA_PROJECT = Project(
                                 System.err.println("Output: " + actual);
                                 System.err.println("Expected: " + expected);
                                 System.err.println("[JUDGE_FEEDBACK]");
-                                System.exit(405);
+                                System.exit(65);
                             }
                         });
                 

@@ -19,7 +19,7 @@ void main() {
       stderr.writeln('Output: ' + actual);
       stderr.writeln('Expected: ' + expected);
       stderr.writeln('[JUDGE_FEEDBACK]');
-      exit(405);
+      exit(65);
     }
   }
 

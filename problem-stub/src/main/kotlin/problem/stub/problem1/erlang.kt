@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.ERLANG
 import problem.Resources
 
 
 val ERLANG_PROJECT = Project(
-    lang = Language.ERLANG,
+    lang = ERLANG,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.erl",
@@ -61,7 +64,7 @@ val ERLANG_PROJECT = Project(
                   Validator = validator,
                 
                   {ok, Data} = file:read_file("input.txt"),
-                  Lines = string:tokens(binary_to_list(Data), "\\n"),
+                  Lines = string:tokens(binary_to_list(Data), "\n"),
                 
                   lists:foreach(fun(TestCase) ->
                     Actual = Solution:swap_first_and_last_words(TestCase),
@@ -75,7 +78,7 @@ val ERLANG_PROJECT = Project(
                         io:format(standard_error, "Output: ~s~n", [Actual]),
                         io:format(standard_error, "Expected: ~s~n", [Expected]),
                         io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
-                        halt(405);
+                        halt(65);
                       true ->
                         ok
                     end

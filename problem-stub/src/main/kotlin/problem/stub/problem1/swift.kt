@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.SWIFT
 import problem.Resources
 
 
 val SWIFT_PROJECT = Project(
-    lang = Language.SWIFT,
+    lang = SWIFT,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.swift",
@@ -57,12 +60,12 @@ val SWIFT_PROJECT = Project(
                 func stderr(_ message: String) {
                     if let data = message.data(using: .utf8) {
                         FileHandle.standardError.write(data)
-                        FileHandle.standardError.write("\\n".data(using: .utf8)!)
+                        FileHandle.standardError.write("\n".data(using: .utf8)!)
                     }
                 }
                 
                 if let input = try? String(contentsOfFile: "input.txt") {
-                    let testCases = input.split(separator: "\\n")
+                    let testCases = input.split(separator: "\n")
                 
                     for testCase in testCases {
                         let actual = solution.swapFirstAndLastWords(String(testCase))
@@ -75,7 +78,7 @@ val SWIFT_PROJECT = Project(
                             stderr("Output: \(actual)")
                             stderr("Expected: \(expected)")
                             stderr("[JUDGE_FEEDBACK]")
-                            exit(405)
+                            exit(65)
                         }
                     }
                 }
@@ -117,6 +120,7 @@ val SWIFT_PROJECT = Project(
                 """
                 #!/usr/bin/env bash
                 
+                chmod +x main.out
                 ./main.out
                 """.trimIndent()
         ),

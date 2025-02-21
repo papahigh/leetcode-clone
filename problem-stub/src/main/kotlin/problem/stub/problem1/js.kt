@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.JAVA_SCRIPT
 import problem.Resources
 
 
 val JS_PROJECT = Project(
-    lang = Language.JAVA_SCRIPT,
+    lang = JAVA_SCRIPT,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.mjs",
@@ -46,7 +49,7 @@ val JS_PROJECT = Project(
                 import * as validator from './validator.mjs';
                 import * as fs from 'node:fs';
                 
-                fs.readFileSync('input.txt', 'utf-8').split('\\n').forEach(testCase => {
+                fs.readFileSync('input.txt', 'utf-8').split('\n').forEach(testCase => {
                     const actual = solution.swapFirstAndLastWords(testCase);
                     const expected = validator.swapFirstAndLastWords(testCase);
                 
@@ -57,7 +60,7 @@ val JS_PROJECT = Project(
                         console.error('Output: ' + actual);
                         console.error('Expected: ' + expected);
                         console.error('[JUDGE_FEEDBACK]');
-                        process.exit(405);
+                        process.exit(65);
                     }
                 });
                 

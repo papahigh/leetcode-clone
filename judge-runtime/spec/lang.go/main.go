@@ -29,7 +29,7 @@ func main() {
 			fmt.Fprintf(os.Stderr, "Output: %s\n", actual)
 			fmt.Fprintf(os.Stderr, "Expected: %s\n", expected)
 			fmt.Fprintln(os.Stderr, "[JUDGE_FEEDBACK]")
-			os.Exit(405)
+			os.Exit(65)
 		}
 	}
 

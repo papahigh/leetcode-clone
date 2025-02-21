@@ -16,7 +16,7 @@ fun main() {
             System.err.println("Output: " + actual)
             System.err.println("Expected: " + expected)
             System.err.println("[JUDGE_FEEDBACK]")
-            System.exit(405)
+            System.exit(65)
         }
     }
 

@@ -13,7 +13,7 @@ defmodule Main do
         IO.write(:stderr, "Output: #{actual}\n")
         IO.write(:stderr, "Expected: #{expected}\n")
         IO.write(:stderr, "[JUDGE_FEEDBACK]\n")
-        System.halt(405)
+        System.halt(65)
       end
     end)
 

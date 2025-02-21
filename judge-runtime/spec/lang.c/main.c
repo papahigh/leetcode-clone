@@ -30,7 +30,7 @@ int main() {
             free(actualResult);
             free(expectedResult);
             fclose(file);
-            return 405;
+            return 65;
         }
 
         free(actualResult);

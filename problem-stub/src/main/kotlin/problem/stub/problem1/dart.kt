@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.DART
 import problem.Resources
 
 
 val DART_PROJECT = Project(
-    lang = Language.DART,
+    lang = DART,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.dart",
@@ -67,7 +70,7 @@ val DART_PROJECT = Project(
                       stderr.writeln('Output: ' + actual);
                       stderr.writeln('Expected: ' + expected);
                       stderr.writeln('[JUDGE_FEEDBACK]');
-                      exit(405);
+                      exit(65);
                     }
                   }
                 

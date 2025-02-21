@@ -17,7 +17,7 @@ fn main() {
             eprintln!("Output: {}", actual);
             eprintln!("Expected: {}", expected);
             eprintln!("[JUDGE_FEEDBACK]");
-            std::process::exit(405);
+            std::process::exit(65);
         }
     }
 

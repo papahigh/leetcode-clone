@@ -1,11 +1,14 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
+import problem.Problem.Language.PYTHON3
 import problem.Resources
 
 
 val PYTHON3_PROJECT = Project(
-    lang = Language.PYTHON3,
+    lang = PYTHON3,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.py",
@@ -55,7 +58,7 @@ val PYTHON3_PROJECT = Project(
                             print(f"Output: {actual}", file=sys.stderr)
                             print(f"Expected: {expected}", file=sys.stderr)
                             print("[JUDGE_FEEDBACK]", file=sys.stderr)
-                            exit(405)
+                            exit(65)
                 
                 print("[JUDGE_FEEDBACK]", file=sys.stderr)
                 print("ACCEPTED", file=sys.stderr)

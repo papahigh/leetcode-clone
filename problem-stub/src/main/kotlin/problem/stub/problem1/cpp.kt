@@ -1,11 +1,13 @@
 package problem.stub.problem1
 
+import INPUT
 import problem.Problem.*
 import problem.Resources
 
 
 val CPP_PROJECT = Project(
     lang = Language.CPP,
+    input = INPUT,
     files = ProjectFiles(
         solution = ProjectFile(
             name = "solution.cpp",
@@ -91,7 +93,7 @@ val CPP_PROJECT = Project(
                             cerr << "Output: " << actual << endl;
                             cerr << "Expected: " << expected << endl;
                             cerr << "[JUDGE_FEEDBACK]" << endl;
-                            return 405;
+                            return 65;
                         }
                     }
                 

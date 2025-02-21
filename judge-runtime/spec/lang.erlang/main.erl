@@ -20,7 +20,7 @@ run() ->
         io:format(standard_error, "Output: ~s~n", [Actual]),
         io:format(standard_error, "Expected: ~s~n", [Expected]),
         io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
-        halt(405);
+        halt(65);
       true ->
         ok
     end

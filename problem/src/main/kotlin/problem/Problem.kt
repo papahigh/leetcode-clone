@@ -8,12 +8,12 @@ data class Problem(
     val slug: String,
     val name: String,
     val body: Markdown,
-    val input: ProjectFile,
     val projects: Collection<Project>,
 ) {
 
     data class Project(
         val lang: Language,
+        val input: ProjectFile,
         val files: ProjectFiles,
         val compile: ProjectAction? = null,
         val execute: ProjectAction,

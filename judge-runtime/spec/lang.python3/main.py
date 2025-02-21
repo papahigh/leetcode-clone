@@ -16,7 +16,7 @@ with open('input.txt', 'r') as f:
             print(f"Output: {actual}", file=sys.stderr)
             print(f"Expected: {expected}", file=sys.stderr)
             print("[JUDGE_FEEDBACK]", file=sys.stderr)
-            exit(405)
+            exit(65)
 
 print("[JUDGE_FEEDBACK]", file=sys.stderr)
 print("ACCEPTED", file=sys.stderr)
