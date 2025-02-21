@@ -11,12 +11,17 @@ fn main() {
         let expected = validator::swap_first_and_last_words(test_case);
 
         if actual != expected {
-            println!("Test case failed: {}", test_case);
-            println!("Expected: {}", expected);
-            println!("Actual: {}", actual);
-            std::process::exit(404);
+            eprintln!("[JUDGE_FEEDBACK]");
+            eprintln!("WRONG_ANSWER");
+            eprintln!("Input: {}", test_case);
+            eprintln!("Output: {}", actual);
+            eprintln!("Expected: {}", expected);
+            eprintln!("[JUDGE_FEEDBACK]");
+            std::process::exit(405);
         }
     }
 
-    println!("All test cases passed!");
+    eprintln!("[JUDGE_FEEDBACK]");
+    eprintln!("ACCEPTED");
+    eprintln!("[JUDGE_FEEDBACK]");
 }

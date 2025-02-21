@@ -3,6 +3,13 @@ import Foundation
 let solution = Solution()
 let validator = Validator()
 
+func stderr(_ message: String) {
+    if let data = message.data(using: .utf8) {
+        FileHandle.standardError.write(data)
+        FileHandle.standardError.write("\n".data(using: .utf8)!)
+    }
+}
+
 if let input = try? String(contentsOfFile: "input.txt") {
     let testCases = input.split(separator: "\n")
 
@@ -11,12 +18,17 @@ if let input = try? String(contentsOfFile: "input.txt") {
         let expected = validator.swapFirstAndLastWords(String(testCase))
 
         if actual != expected {
-            print("Test case failed: \(testCase)")
-            print("Expected: \(expected)")
-            print("Actual: \(actual)")
-            exit(404)
+            stderr("[JUDGE_FEEDBACK]")
+            stderr("WRONG_ANSWER")
+            stderr("Input: \(testCase)")
+            stderr("Output: \(actual)")
+            stderr("Expected: \(expected)")
+            stderr("[JUDGE_FEEDBACK]")
+            exit(405)
         }
     }
 }
 
-print("All test cases passed!")
+stderr("[JUDGE_FEEDBACK]")
+stderr("ACCEPTED")
+stderr("[JUDGE_FEEDBACK]")

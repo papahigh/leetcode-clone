@@ -12,11 +12,16 @@ foreach ($input as $testCase) {
     $expected = $validator->swapFirstAndLastWords($testCase);
 
     if ($actual !== $expected) {
-        echo "Test case failed: " . $testCase . "\n";
-        echo "Expected: " . $expected . "\n";
-        echo "Actual: " . $actual . "\n";
-        exit(404);
+        fwrite(STDERR, "[JUDGE_FEEDBACK]\n");
+        fwrite(STDERR, "WRONG_ANSWER\n");
+        fwrite(STDERR, "Input: " . $testCase . "\n");
+        fwrite(STDERR, "Output: " . $actual . "\n");
+        fwrite(STDERR, "Expected: " . $expected . "\n");
+        fwrite(STDERR, "[JUDGE_FEEDBACK]\n");
+        exit(405);
     }
 }
 
-echo "All test cases passed!\n";
+fwrite(STDERR, "[JUDGE_FEEDBACK]\n");
+fwrite(STDERR, "ACCEPTED\n");
+fwrite(STDERR, "[JUDGE_FEEDBACK]\n");

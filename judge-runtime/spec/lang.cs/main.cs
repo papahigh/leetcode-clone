@@ -11,13 +11,18 @@ class Program {
             var expected = validator.SwapFirstAndLastWords(testCase);
 
             if (actual != expected) {
-                Console.WriteLine($"Test case failed: {testCase}");
-                Console.WriteLine($"Expected: {expected}");
-                Console.WriteLine($"Actual: {actual}");
-                Environment.Exit(404);
+                Console.Error.WriteLine("[JUDGE_FEEDBACK]");
+                Console.Error.WriteLine("WRONG_ANSWER");
+                Console.Error.WriteLine($"Input: {testCase}");
+                Console.Error.WriteLine($"Output: {actual}");
+                Console.Error.WriteLine($"Expected: {expected}");
+                Console.Error.WriteLine("[JUDGE_FEEDBACK]");
+                Environment.Exit(405);
             }
         }
 
-        Console.WriteLine("All test cases passed!");
+        Console.Error.WriteLine("[JUDGE_FEEDBACK]");
+        Console.Error.WriteLine("ACCEPTED");
+        Console.Error.WriteLine("[JUDGE_FEEDBACK]");
     }
 }

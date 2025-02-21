@@ -14,13 +14,18 @@ public class Main {
             var expected = verifier.swapFirstAndLastWords(testCase);
 
             if (!expected.equals(actual)) {
-                System.out.println("Test case failed: " + testCase);
-                System.out.println("Expected: " + expected);
-                System.out.println("Actual: " + actual);
-                System.exit(404);
+                System.err.println("[JUDGE_FEEDBACK]");
+                System.err.println("WRONG_ANSWER");
+                System.err.println("Input: " + testCase);
+                System.err.println("Output: " + actual);
+                System.err.println("Expected: " + expected);
+                System.err.println("[JUDGE_FEEDBACK]");
+                System.exit(405);
             }
         });
 
-        System.out.println("All test cases passed!");
+        System.err.println("[JUDGE_FEEDBACK]");
+        System.err.println("ACCEPTED");
+        System.err.println("[JUDGE_FEEDBACK]");
     }
 }

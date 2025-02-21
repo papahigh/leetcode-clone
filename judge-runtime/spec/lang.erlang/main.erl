@@ -14,14 +14,19 @@ run() ->
 
     if
       Actual /= Expected ->
-        io:format("Test case failed: ~s~n", [TestCase]),
-        io:format("Expected: ~s~n", [Expected]),
-        io:format("Actual: ~s~n", [Actual]),
-        halt(404);
+        io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
+        io:format(standard_error, "WRONG_ANSWER~n", []),
+        io:format(standard_error, "Input: ~s~n", [TestCase]),
+        io:format(standard_error, "Output: ~s~n", [Actual]),
+        io:format(standard_error, "Expected: ~s~n", [Expected]),
+        io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
+        halt(405);
       true ->
         ok
     end
   end, Lines),
 
-  io:format("All test cases passed!~n"),
+  io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
+  io:format(standard_error, "ACCEPTED~n", []),
+  io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
   halt(0).

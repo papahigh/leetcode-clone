@@ -23,7 +23,7 @@ RSpec.describe 'Docker Container Check' do
 
   LANG_DIRS.each do |dir|
     it "should have #{dir} language support" do
-      system("docker run --cgroupns=host --privileged --rm -v #{__dir__}/lang.#{dir}:/tmp/app -w /tmp/app #{IMAGE_NAME} sh test.sh")
+      system("docker run --cgroupns=host --privileged --rm -v #{__dir__}/lang.#{dir}:/tmp/app -w /tmp/app #{IMAGE_NAME} /bin/bash test.sh")
       expect($?.exitstatus).to eq(0), "expected exit code 0 for #{dir}, got #{$?.exitstatus}"
     end
   end

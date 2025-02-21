@@ -13,12 +13,17 @@ void main() {
     var expected = validator.swapFirstAndLastWords(testCase);
 
     if (actual != expected) {
-      print('Test case failed: ' + testCase);
-      print('Expected: ' + expected);
-      print('Actual: ' + actual);
-      exit(404);
+      stderr.writeln('[JUDGE_FEEDBACK]');
+      stderr.writeln('WRONG_ANSWER');
+      stderr.writeln('Input: ' + testCase);
+      stderr.writeln('Output: ' + actual);
+      stderr.writeln('Expected: ' + expected);
+      stderr.writeln('[JUDGE_FEEDBACK]');
+      exit(405);
     }
   }
 
-  print('All test cases passed!');
+  stderr.writeln('[JUDGE_FEEDBACK]');
+  stderr.writeln('ACCEPTED');
+  stderr.writeln('[JUDGE_FEEDBACK]');
 }

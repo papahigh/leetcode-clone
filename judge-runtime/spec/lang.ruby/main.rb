@@ -8,11 +8,16 @@ File.readlines('input.txt').each do |testCase|
   expected = swap_first_and_last_words_validator(testCase)
 
   if actual != expected
-    puts "Test case failed: #{testCase}"
-    puts "Expected: #{expected}"
-    puts "Actual: #{actual}"
-    exit(404)
+    warn "[JUDGE_FEEDBACK]"
+    warn "WRONG_ANSWER"
+    warn "Input: #{testCase}"
+    warn "Output: #{actual}"
+    warn "Expected: #{expected}"
+    warn "[JUDGE_FEEDBACK]"
+    exit(405)
   end
 end
 
-puts "All test cases passed!"
+warn "[JUDGE_FEEDBACK]"
+warn "ACCEPTED"
+warn "[JUDGE_FEEDBACK]"

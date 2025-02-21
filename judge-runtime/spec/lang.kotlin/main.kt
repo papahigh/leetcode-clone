@@ -10,12 +10,17 @@ fun main() {
         val expected = validator.swapFirstAndLastWords(testCase)
 
         if (actual != expected) {
-            println("Test case failed: " + testCase)
-            println("Expected: " + expected)
-            println("Actual: " + actual)
-            System.exit(404)
+            System.err.println("[JUDGE_FEEDBACK]")
+            System.err.println("WRONG_ANSWER")
+            System.err.println("Input: " + testCase)
+            System.err.println("Output: " + actual)
+            System.err.println("Expected: " + expected)
+            System.err.println("[JUDGE_FEEDBACK]")
+            System.exit(405)
         }
     }
 
-    println("All test cases passed!")
+    System.err.println("[JUDGE_FEEDBACK]")
+    System.err.println("ACCEPTED")
+    System.err.println("[JUDGE_FEEDBACK]")
 }

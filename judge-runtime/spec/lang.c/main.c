@@ -8,7 +8,7 @@ char* swapFirstAndLastWordsValidator(const char *s);
 int main() {
     FILE *file = fopen("input.txt", "r");
     if (!file) {
-        printf("Error: Could not open input.txt\n");
+        fprintf(stderr, "[JUDGE_ERROR]\n");
         return 1;
     }
 
@@ -17,24 +17,29 @@ int main() {
     while (fgets(testCase, sizeof(testCase), file)) {
         testCase[strcspn(testCase, "\n")] = 0; // Remove newline
 
-        char *studentResult = swapFirstAndLastWordsSolution(testCase);
+        char *actualResult = swapFirstAndLastWordsSolution(testCase);
         char *expectedResult = swapFirstAndLastWordsValidator(testCase);
 
-        if (strcmp(studentResult, expectedResult) != 0) {
-            printf("Test case failed: %s\n", testCase);
-            printf("Expected: %s\n", expectedResult);
-            printf("Actual: %s\n", studentResult);
-            free(studentResult);
+        if (strcmp(actualResult, expectedResult) != 0) {
+            fprintf(stderr, "[JUDGE_FEEDBACK]\n");
+            fprintf(stderr, "WRONG_ANSWER\n");
+            fprintf(stderr, "Input: %s\n", testCase);
+            fprintf(stderr, "Output: %s\n", actualResult);
+            fprintf(stderr, "Expected: %s\n", expectedResult);
+            fprintf(stderr, "[JUDGE_FEEDBACK]\n");
+            free(actualResult);
             free(expectedResult);
             fclose(file);
-            return 404;
+            return 405;
         }
 
-        free(studentResult);
+        free(actualResult);
         free(expectedResult);
     }
 
-    printf("All test cases passed!\n");
+    fprintf(stderr, "[JUDGE_FEEDBACK]\n");
+    fprintf(stderr, "ACCEPTED\n");
+    fprintf(stderr, "[JUDGE_FEEDBACK]\n");
     fclose(file);
     return 0;
 }

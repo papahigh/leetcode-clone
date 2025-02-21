@@ -19,13 +19,18 @@ int main() {
         string expected = swapFirstAndLastWordsValidator(testCase);
 
         if (actual != expected) {
-            cout << "Test case failed: " << testCase << endl;
-            cout << "Expected: " << expected << endl;
-            cout << "Actual: " << actual << endl;
-            return 404;
+            cerr << "[JUDGE_FEEDBACK]" << endl;
+            cerr << "WRONG_ANSWER" << endl;
+            cerr << "Input: " << testCase << endl;
+            cerr << "Output: " << actual << endl;
+            cerr << "Expected: " << expected << endl;
+            cerr << "[JUDGE_FEEDBACK]" << endl;
+            return 405;
         }
     }
 
-    cout << "All test cases passed!" << endl;
+    cerr << "[JUDGE_FEEDBACK]" << endl;
+    cerr << "ACCEPTED" << endl;
+    cerr << "[JUDGE_FEEDBACK]" << endl;
     return 0;
 }
