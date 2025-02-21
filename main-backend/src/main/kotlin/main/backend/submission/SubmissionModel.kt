@@ -60,8 +60,12 @@ class FeedbackModel {
     var status: Status? = null
 
     @Nullable
-    @Column(name = "output", columnDefinition = "TEXT")
-    var output: String? = null
+    @Column(name = "stdout", columnDefinition = "TEXT")
+    var stdout: String? = null
+
+    @Nullable
+    @Column(name = "stderr", columnDefinition = "TEXT")
+    var stderr: String? = null
 
     @Nullable
     @Column(name = "time")

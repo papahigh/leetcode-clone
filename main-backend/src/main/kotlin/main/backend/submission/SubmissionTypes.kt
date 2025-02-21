@@ -31,8 +31,9 @@ data class SubmissionDetails(
 
 @Serdeable
 data class FeedbackDetails(
-    val status: Status,
-    val output: String?,
+    val status: Status?,
+    val stdout: String?,
+    val stderr: String?,
     val time: Int?,
     val memory: Int?,
 )

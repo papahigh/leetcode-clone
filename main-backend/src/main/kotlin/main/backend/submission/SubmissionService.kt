@@ -51,7 +51,6 @@ class SubmissionServiceImpl(
         @Binding("\${judge.queue.submission}")
         @Counted("main_backend.submission_sent")
         fun send(submission: SubmissionEvent)
-
     }
 
     private companion object {

@@ -5,7 +5,8 @@ import problem.Resources
 data class FeedbackEvent(
     val id: SubmissionID,
     val status: Status,
-    val output: String?,
+    val stdout: String,
+    val stderr: String,
     val resources: Resources
 ) {
 
