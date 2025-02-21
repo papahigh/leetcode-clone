@@ -5,6 +5,7 @@ import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.repository.CrudRepository
 import io.micronaut.data.repository.jpa.JpaSpecificationExecutor
 import io.micronaut.data.runtime.criteria.get
+import io.micronaut.data.runtime.criteria.update
 import judge.FeedbackEvent
 import judge.SubmissionID
 
@@ -16,7 +17,7 @@ abstract class SubmissionRepository : CrudRepository<SubmissionModel, Submission
     abstract fun getById(id: SubmissionID): SubmissionModel?
 
     fun updateFeedback(event: FeedbackEvent) {
-        var update = io.micronaut.data.runtime.criteria.update<SubmissionModel> {
+        var update = update<SubmissionModel> {
             set(SubmissionModel::status, event.status)
             event.stdout?.let { set(SubmissionModel::stdout, it) }
             event.stderr?.let { set(SubmissionModel::stderr, it) }
