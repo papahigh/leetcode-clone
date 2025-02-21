@@ -8,19 +8,18 @@ data class Problem(
     val slug: String,
     val name: String,
     val body: Markdown,
+    val input: ProjectFile,
     val projects: Collection<Project>,
-    val testCases: ProjectFile,
 ) {
 
     data class Project(
         val lang: Language,
         val files: ProjectFiles,
-        val limits: Resources?,
+        val compile: ProjectAction? = null,
+        val execute: ProjectAction,
     )
 
     data class ProjectFiles(
-        val compile: ProjectFile = ProjectFile("compile.sh", ""),
-        val execute: ProjectFile,
         val solution: ProjectFile,
         val validator: ProjectFile,
         val evaluator: ProjectFile,
@@ -28,6 +27,8 @@ data class Problem(
     )
 
     data class ProjectFile(val name: String, val content: String)
+
+    data class ProjectAction(val script: ProjectFile, val resources: Resources)
 
     enum class Language(val runtimeKey: String) {
         C("c"),

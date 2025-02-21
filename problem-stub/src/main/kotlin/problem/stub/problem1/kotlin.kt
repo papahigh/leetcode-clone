@@ -57,37 +57,57 @@ val KOTLIN_PROJECT = Project(
                         val expected = validator.swapFirstAndLastWords(testCase)
                 
                         if (actual != expected) {
-                            println("Test case failed: " + testCase)
-                            println("Expected: " + expected)
-                            println("Actual: " + actual)
-                            System.exit(404)
+                            System.err.println("[JUDGE_FEEDBACK]")
+                            System.err.println("WRONG_ANSWER")
+                            System.err.println("Input: " + testCase)
+                            System.err.println("Output: " + actual)
+                            System.err.println("Expected: " + expected)
+                            System.err.println("[JUDGE_FEEDBACK]")
+                            System.exit(405)
                         }
                     }
                 
-                    println("All test cases passed!")
+                    System.err.println("[JUDGE_FEEDBACK]")
+                    System.err.println("ACCEPTED")
+                    System.err.println("[JUDGE_FEEDBACK]")
                 }
                 """.trimIndent()
         ),
-        compile = ProjectFile(
+    ),
+    compile = ProjectAction(
+        script = ProjectFile(
             name = "compile.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
                 
                 kotlinc ./*.kt -include-runtime -d main.jar
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+        resources = Resources(time = 10, memory = 512000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 java -jar main.jar
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

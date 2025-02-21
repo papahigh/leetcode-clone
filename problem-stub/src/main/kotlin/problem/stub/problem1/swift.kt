@@ -16,7 +16,7 @@ val SWIFT_PROJECT = Project(
                 
                 public class Solution {
                     public func swapFirstAndLastWords(_ s: String) -> String {
-
+                
                     }
                 }
                 """.trimIndent()
@@ -54,6 +54,13 @@ val SWIFT_PROJECT = Project(
                 let solution = Solution()
                 let validator = Validator()
                 
+                func stderr(_ message: String) {
+                    if let data = message.data(using: .utf8) {
+                        FileHandle.standardError.write(data)
+                        FileHandle.standardError.write("\\n".data(using: .utf8)!)
+                    }
+                }
+                
                 if let input = try? String(contentsOfFile: "input.txt") {
                     let testCases = input.split(separator: "\\n")
                 
@@ -62,37 +69,57 @@ val SWIFT_PROJECT = Project(
                         let expected = validator.swapFirstAndLastWords(String(testCase))
                 
                         if actual != expected {
-                            print("Test case failed: \(testCase)")
-                            print("Expected: \(expected)")
-                            print("Actual: \(actual)")
-                            exit(404)
+                            stderr("[JUDGE_FEEDBACK]")
+                            stderr("WRONG_ANSWER")
+                            stderr("Input: \(testCase)")
+                            stderr("Output: \(actual)")
+                            stderr("Expected: \(expected)")
+                            stderr("[JUDGE_FEEDBACK]")
+                            exit(405)
                         }
                     }
                 }
                 
-                print("All test cases passed!")
+                stderr("[JUDGE_FEEDBACK]")
+                stderr("ACCEPTED")
+                stderr("[JUDGE_FEEDBACK]")
                 """.trimIndent()
         ),
-        compile = ProjectFile(
+    ),
+    compile = ProjectAction(
+        script = ProjectFile(
             name = "compile.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
                 
                 swiftc ./*.swift -o main.out
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+        resources = Resources(time = 3, memory = 75000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 ./main.out
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

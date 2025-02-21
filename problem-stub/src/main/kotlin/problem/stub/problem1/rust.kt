@@ -54,37 +54,57 @@ val RUST_PROJECT = Project(
                         let expected = validator::swap_first_and_last_words(test_case);
                 
                         if actual != expected {
-                            println!("Test case failed: {}", test_case);
-                            println!("Expected: {}", expected);
-                            println!("Actual: {}", actual);
-                            std::process::exit(404);
+                            eprintln!("[JUDGE_FEEDBACK]");
+                            eprintln!("WRONG_ANSWER");
+                            eprintln!("Input: {}", test_case);
+                            eprintln!("Output: {}", actual);
+                            eprintln!("Expected: {}", expected);
+                            eprintln!("[JUDGE_FEEDBACK]");
+                            std::process::exit(405);
                         }
                     }
                 
-                    println!("All test cases passed!");
+                    eprintln!("[JUDGE_FEEDBACK]");
+                    eprintln!("ACCEPTED");
+                    eprintln!("[JUDGE_FEEDBACK]");
                 }
                 """.trimIndent()
         ),
-        compile = ProjectFile(
+    ),
+    compile = ProjectAction(
+        script = ProjectFile(
             name = "compile.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
                 
                 rustc main.rs -o main.out
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+        resources = Resources(time = 3, memory = 75000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 ./main.out
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

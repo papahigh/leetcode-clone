@@ -69,39 +69,59 @@ val ERLANG_PROJECT = Project(
                 
                     if
                       Actual /= Expected ->
-                        io:format("Test case failed: ~s~n", [TestCase]),
-                        io:format("Expected: ~s~n", [Expected]),
-                        io:format("Actual: ~s~n", [Actual]),
-                        halt(404);
+                        io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
+                        io:format(standard_error, "WRONG_ANSWER~n", []),
+                        io:format(standard_error, "Input: ~s~n", [TestCase]),
+                        io:format(standard_error, "Output: ~s~n", [Actual]),
+                        io:format(standard_error, "Expected: ~s~n", [Expected]),
+                        io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
+                        halt(405);
                       true ->
                         ok
                     end
                   end, Lines),
                 
-                  io:format("All test cases passed!~n"),
+                  io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
+                  io:format(standard_error, "ACCEPTED~n", []),
+                  io:format(standard_error, "[JUDGE_FEEDBACK]~n", []),
                   halt(0).
                 """.trimIndent()
         ),
-        compile = ProjectFile(
+    ),
+    compile = ProjectAction(
+        script = ProjectFile(
             name = "compile.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
                 
                 erlc solution.erl validator.erl main.erl
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+        resources = Resources(time = 3, memory = 75000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 erl -noshell -s main run -s init stop
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

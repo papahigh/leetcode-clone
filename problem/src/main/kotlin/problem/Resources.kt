@@ -6,6 +6,6 @@ package problem
  */
 data class Resources(val time: Int, val memory: Int) {
     companion object {
-        val NOT_AVAILABLE = Resources(0, 0)
+        val NOT_AVAILABLE = Resources(-1, -1)
     }
 }

@@ -57,38 +57,58 @@ val ELIXIR_PROJECT = Project(
                       expected = Validator.swap_first_and_last_words(test_case)
                 
                       if actual != expected do
-                        IO.puts("Test case failed: #{test_case}")
-                        IO.puts("Expected: #{expected}")
-                        IO.puts("Actual: #{actual}")
-                        System.halt(404)
+                        IO.write(:stderr, "[JUDGE_FEEDBACK]\\n")
+                        IO.write(:stderr, "WRONG_ANSWER\\n")
+                        IO.write(:stderr, "Input: #{test_case}\\n")
+                        IO.write(:stderr, "Output: #{actual}\\n")
+                        IO.write(:stderr, "Expected: #{expected}\\n")
+                        IO.write(:stderr, "[JUDGE_FEEDBACK]\\n")
+                        System.halt(405)
                       end
                     end)
                 
-                    IO.puts("All test cases passed!")
+                    IO.write(:stderr, "[JUDGE_FEEDBACK]\\n")
+                    IO.write(:stderr, "ACCEPTED\\n")
+                    IO.write(:stderr, "[JUDGE_FEEDBACK]\\n")
                   end
                 end
                 """.trimIndent()
         ),
-        compile = ProjectFile(
+    ),
+    compile = ProjectAction(
+        script = ProjectFile(
             name = "compile.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
                 
                 elixirc solution.ex validator.ex main.ex
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+        resources = Resources(time = 3, memory = 75000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 elixir -e "Main.run()"
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

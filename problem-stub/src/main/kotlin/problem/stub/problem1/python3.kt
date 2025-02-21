@@ -39,6 +39,7 @@ val PYTHON3_PROJECT = Project(
                 """
                 import solution as s
                 import validator as v
+                import sys
                 
                 with open('input.txt', 'r') as f:
                     for testCase in f.readlines():
@@ -48,24 +49,31 @@ val PYTHON3_PROJECT = Project(
                         expected = v.swapFirstAndLastWords(testCase)
                 
                         if actual != expected:
-                            print(f"Test case failed: {testCase}")
-                            print(f"Expected: {expected}")
-                            print(f"Actual: {actual}")
-                            exit(404)
+                            print("[JUDGE_FEEDBACK]", file=sys.stderr)
+                            print("WRONG_ANSWER", file=sys.stderr)
+                            print(f"Input: {testCase}", file=sys.stderr)
+                            print(f"Output: {actual}", file=sys.stderr)
+                            print(f"Expected: {expected}", file=sys.stderr)
+                            print("[JUDGE_FEEDBACK]", file=sys.stderr)
+                            exit(405)
                 
-                print("All test cases passed!")
+                print("[JUDGE_FEEDBACK]", file=sys.stderr)
+                print("ACCEPTED", file=sys.stderr)
+                print("[JUDGE_FEEDBACK]", file=sys.stderr)
                 """
         ),
-        execute = ProjectFile(
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 python3 Main.py
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

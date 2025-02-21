@@ -51,26 +51,34 @@ val JS_PROJECT = Project(
                     const expected = validator.swapFirstAndLastWords(testCase);
                 
                     if (actual !== expected) {
-                        console.log('Test case failed: ' + testCase);
-                        console.log('Expected: ' + expected);
-                        console.log('Actual: ' + actual);
-                        process.exit(404);
+                        console.error('[JUDGE_FEEDBACK]');
+                        console.error('WRONG_ANSWER');
+                        console.error('Input: ' + testCase);
+                        console.error('Output: ' + actual);
+                        console.error('Expected: ' + expected);
+                        console.error('[JUDGE_FEEDBACK]');
+                        process.exit(405);
                     }
                 });
                 
-                console.log('All test cases passed!');
+                console.error('[JUDGE_FEEDBACK]');
+                console.error('ACCEPTED');
+                console.error('[JUDGE_FEEDBACK]');
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+
+        ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 node main.mjs
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

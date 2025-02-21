@@ -85,38 +85,58 @@ val CPP_PROJECT = Project(
                         string expected = swapFirstAndLastWordsValidator(testCase);
                 
                         if (actual != expected) {
-                            cout << "Test case failed: " << testCase << endl;
-                            cout << "Expected: " << expected << endl;
-                            cout << "Actual: " << actual << endl;
-                            return 404;
+                            cerr << "[JUDGE_FEEDBACK]" << endl;
+                            cerr << "WRONG_ANSWER" << endl;
+                            cerr << "Input: " << testCase << endl;
+                            cerr << "Output: " << actual << endl;
+                            cerr << "Expected: " << expected << endl;
+                            cerr << "[JUDGE_FEEDBACK]" << endl;
+                            return 405;
                         }
                     }
                 
-                    cout << "All test cases passed!" << endl;
+                    cerr << "[JUDGE_FEEDBACK]" << endl;
+                    cerr << "ACCEPTED" << endl;
+                    cerr << "[JUDGE_FEEDBACK]" << endl;
                     return 0;
                 }
                 """.trimIndent()
         ),
-        compile = ProjectFile(
+    ),
+    compile = ProjectAction(
+        script = ProjectFile(
             name = "compile.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
                 
                 clang++ -std=c++23 -o main.out main.cpp solution.cpp validator.cpp
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+        resources = Resources(time = 3, memory = 75000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 ./main.out
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

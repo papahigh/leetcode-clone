@@ -66,38 +66,58 @@ val JAVA_PROJECT = Project(
                             var expected = verifier.swapFirstAndLastWords(testCase);
                 
                             if (!expected.equals(actual)) {
-                                System.out.println("Test case failed: " + testCase);
-                                System.out.println("Expected: " + expected);
-                                System.out.println("Actual: " + actual);
-                                System.exit(404);
+                                System.err.println("[JUDGE_FEEDBACK]");
+                                System.err.println("WRONG_ANSWER");
+                                System.err.println("Input: " + testCase);
+                                System.err.println("Output: " + actual);
+                                System.err.println("Expected: " + expected);
+                                System.err.println("[JUDGE_FEEDBACK]");
+                                System.exit(405);
                             }
                         });
                 
-                        System.out.println("All test cases passed!");
+                        System.err.println("[JUDGE_FEEDBACK]");
+                        System.err.println("ACCEPTED");
+                        System.err.println("[JUDGE_FEEDBACK]");
                     }
                 }
                 """.trimIndent()
         ),
-        compile = ProjectFile(
+    ),
+    compile = ProjectAction(
+        script = ProjectFile(
             name = "compile.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
                 
                 javac ./*.java
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+        resources = Resources(time = 10, memory = 512000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 java Main
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )

@@ -61,35 +61,20 @@ val DART_PROJECT = Project(
                     var expected = validator.swapFirstAndLastWords(testCase);
                 
                     if (actual != expected) {
-                      print('Test case failed: ' + testCase);
-                      print('Expected: ' + expected);
-                      print('Actual: ' + actual);
-                      exit(404);
+                      stderr.writeln('[JUDGE_FEEDBACK]');
+                      stderr.writeln('WRONG_ANSWER');
+                      stderr.writeln('Input: ' + testCase);
+                      stderr.writeln('Output: ' + actual);
+                      stderr.writeln('Expected: ' + expected);
+                      stderr.writeln('[JUDGE_FEEDBACK]');
+                      exit(405);
                     }
                   }
                 
-                  print('All test cases passed!');
+                  stderr.writeln('[JUDGE_FEEDBACK]');
+                  stderr.writeln('ACCEPTED');
+                  stderr.writeln('[JUDGE_FEEDBACK]');
                 }
-                """.trimIndent()
-        ),
-        compile = ProjectFile(
-            name = "compile.sh",
-            content =
-                // language=sh
-                """
-                #!/usr/bin/env sh
-                
-                dart compile exe main.dart -o main.out
-                """.trimIndent()
-        ),
-        execute = ProjectFile(
-            name = "execute.sh",
-            content =
-                // language=sh
-                """
-                #!/usr/bin/env sh
-                
-                ./main.out
                 """.trimIndent()
         ),
         resources = listOf(
@@ -106,5 +91,40 @@ val DART_PROJECT = Project(
             )
         )
     ),
-    limits = Resources(time = 10, memory = 262144)
+    compile = ProjectAction(
+        script = ProjectFile(
+            name = "compile.sh",
+            content =
+                // language=bash
+                """
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
+                
+                dart compile exe main.dart -o main.out
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
+                """.trimIndent()
+        ),
+        resources = Resources(time = 3, memory = 75000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
+            name = "execute.sh",
+            content =
+                // language=bash
+                """
+                #!/usr/bin/env bash
+                
+                ./main.out
+                """.trimIndent()
+        ),
+        resources = Resources(time = 3, memory = 75000)
+    ),
 )

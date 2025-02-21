@@ -58,37 +58,23 @@ val TS_PROJECT = Project(
                     const expected = validator.swapFirstAndLastWords(testCase);
                 
                     if (actual !== expected) {
-                        console.log('Test case failed: ' + testCase);
-                        console.log('Expected: ' + expected);
-                        console.log('Actual: ' + actual);
+                        console.error('[JUDGE_FEEDBACK]');
+                        console.error('WRONG_ANSWER');
+                        console.error('Input: ' + testCase);
+                        console.error('Output: ' + actual);
+                        console.error('Expected: ' + expected);
+                        console.error('[JUDGE_FEEDBACK]');
                         // @ts-ignore
-                        process.exit(404);
+                        process.exit(405);
                     }
                 });
                 
-                console.log('All test cases passed!');
+                console.error('[JUDGE_FEEDBACK]');
+                console.error('ACCEPTED');
+                console.error('[JUDGE_FEEDBACK]');
                 """.trimIndent()
         ),
-        compile = ProjectFile(
-            name = "compile.sh",
-            content =
-                // language=sh
-                """
-                #!/usr/bin/env sh
-                
-                tsc -p tsconfig.json
-                """.trimIndent()
-        ),
-        execute = ProjectFile(
-            name = "execute.sh",
-            content =
-                // language=sh
-                """
-                #!/usr/bin/env sh
-                
-                node main.js
-                """.trimIndent()
-        ),
+
         resources = listOf(
             ProjectFile(
                 name = "tsconfig.json",
@@ -110,5 +96,40 @@ val TS_PROJECT = Project(
             )
         )
     ),
-    limits = Resources(time = 10, memory = 262144)
+    compile = ProjectAction(
+        script = ProjectFile(
+            name = "compile.sh",
+            content =
+                // language=sh
+                """
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
+                
+                tsc -p tsconfig.json
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
+                """.trimIndent()
+        ),
+        resources = Resources(time = 3, memory = 75000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
+            name = "execute.sh",
+            content =
+                // language=bash
+                """
+                #!/usr/bin/env bash
+                
+                node main.js
+                """.trimIndent()
+        ),
+        resources = Resources(time = 3, memory = 75000)
+    ),
 )

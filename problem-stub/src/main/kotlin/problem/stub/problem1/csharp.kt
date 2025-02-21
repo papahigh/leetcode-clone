@@ -61,36 +61,21 @@ val CS_PROJECT = Project(
                             var expected = validator.SwapFirstAndLastWords(testCase);
                 
                             if (actual != expected) {
-                                Console.WriteLine($"Test case failed: {testCase}");
-                                Console.WriteLine($"Expected: {expected}");
-                                Console.WriteLine($"Actual: {actual}");
-                                Environment.Exit(404);
+                                Console.Error.WriteLine("[JUDGE_FEEDBACK]");
+                                Console.Error.WriteLine("WRONG_ANSWER");
+                                Console.Error.WriteLine(${'$'}"Input: {testCase}");
+                                Console.Error.WriteLine(${'$'}"Output: {actual}");
+                                Console.Error.WriteLine(${'$'}"Expected: {expected}");
+                                Console.Error.WriteLine("[JUDGE_FEEDBACK]");
+                                Environment.Exit(405);
                             }
                         }
                 
-                        Console.WriteLine("All test cases passed!");
+                        Console.Error.WriteLine("[JUDGE_FEEDBACK]");
+                        Console.Error.WriteLine("ACCEPTED");
+                        Console.Error.WriteLine("[JUDGE_FEEDBACK]");
                     }
                 }
-                """.trimIndent()
-        ),
-        compile = ProjectFile(
-            name = "compile.sh",
-            content =
-                // language=sh
-                """
-                #!/usr/bin/env sh
-                
-                dotnet build --configuration Release -o ./out .
-                """.trimIndent()
-        ),
-        execute = ProjectFile(
-            name = "execute.sh",
-            content =
-                // language=sh
-                """
-                #!/usr/bin/env sh
-                
-                ./out/main
                 """.trimIndent()
         ),
         resources = listOf(
@@ -111,5 +96,40 @@ val CS_PROJECT = Project(
             )
         )
     ),
-    limits = Resources(time = 10, memory = 262144)
+    compile = ProjectAction(
+        script = ProjectFile(
+            name = "compile.sh",
+            content =
+                // language=bash
+                """
+                #!/usr/bin/env bash
+                
+                stderr() { echo "${'$'}@" 1>&2; }
+                stderr "[JUDGE_FEEDBACK]"
+                
+                dotnet build --configuration Release -o ./out .
+                
+                EXIT_CODE="${'$'}?"
+                if [[ "${'$'}EXIT_CODE" -eq 0 ]]
+                then stderr "ACCEPTED"
+                fi
+                stderr "[JUDGE_FEEDBACK]"
+                exit "${'$'}EXIT_CODE"
+                """.trimIndent()
+        ),
+        resources = Resources(time = 3, memory = 75000)
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
+            name = "execute.sh",
+            content =
+                // language=bash
+                """
+                #!/usr/bin/env bash
+                
+                ./out/main
+                """.trimIndent()
+        ),
+        resources = Resources(time = 3, memory = 75000)
+    ),
 )

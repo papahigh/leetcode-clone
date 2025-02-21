@@ -45,7 +45,7 @@ val PROBLEM = Problem(
         
         """.trimIndent(),
 
-    testCases = Problem.ProjectFile(
+    input = Problem.ProjectFile(
         name = "input.txt",
         content =
             """

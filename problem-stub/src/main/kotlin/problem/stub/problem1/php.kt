@@ -68,26 +68,33 @@ val PHP_PROJECT = Project(
                     ${'$'}expected = ${'$'}validator->swapFirstAndLastWords(${'$'}testCase);
                 
                     if (${'$'}actual !== ${'$'}expected) {
-                        echo "Test case failed: " . ${'$'}testCase . "\\n";
-                        echo "Expected: " . ${'$'}expected . "\\n";
-                        echo "Actual: " . ${'$'}actual . "\\n";
-                        exit(404);
+                        fwrite(STDERR, "[JUDGE_FEEDBACK]\\n");
+                        fwrite(STDERR, "WRONG_ANSWER\\n");
+                        fwrite(STDERR, "Input: " . ${'$'}testCase . "\\n");
+                        fwrite(STDERR, "Output: " . ${'$'}actual . "\\n");
+                        fwrite(STDERR, "Expected: " . ${'$'}expected . "\\n");
+                        fwrite(STDERR, "[JUDGE_FEEDBACK]\\n");
+                        exit(405);
                     }
                 }
                 
-                echo "All test cases passed!\\n";
+                fwrite(STDERR, "[JUDGE_FEEDBACK]\\n");
+                fwrite(STDERR, "ACCEPTED\\n");
+                fwrite(STDERR, "[JUDGE_FEEDBACK]\\n");
                 """.trimIndent()
         ),
-        execute = ProjectFile(
+    ),
+    execute = ProjectAction(
+        script = ProjectFile(
             name = "execute.sh",
             content =
-                // language=sh
+                // language=bash
                 """
-                #!/usr/bin/env sh
+                #!/usr/bin/env bash
                 
                 php main.php
                 """.trimIndent()
         ),
+        resources = Resources(time = 3, memory = 75000)
     ),
-    limits = Resources(time = 10, memory = 262144)
 )
