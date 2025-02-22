@@ -1,10 +1,10 @@
 package problem.stub.problem1
 
-import INPUT
 import problem.Problem.*
 import problem.Problem.Language.RUST
 import problem.Resources
-import kotlin.time.Duration.Companion.seconds
+import problem.resources.Memory.Companion.kilobytes
+import problem.resources.Time.Companion.seconds
 
 
 val RUST_PROJECT = Project(
@@ -96,7 +96,7 @@ val RUST_PROJECT = Project(
                 exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        resources = Resources(time = 3.seconds, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000.kilobytes)
     ),
     execute = ProjectAction(
         script = ProjectFile(
@@ -109,6 +109,6 @@ val RUST_PROJECT = Project(
                 ./main.out
                 """.trimIndent()
         ),
-        resources = Resources(time = 3.seconds, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000.kilobytes)
     ),
 )

@@ -1,10 +1,10 @@
 package problem.stub.problem1
 
-import INPUT
 import problem.Problem.*
 import problem.Problem.Language.ELIXIR
 import problem.Resources
-import kotlin.time.Duration.Companion.seconds
+import problem.resources.Memory.Companion.kilobytes
+import problem.resources.Time.Companion.seconds
 
 
 val ELIXIR_PROJECT = Project(
@@ -100,7 +100,7 @@ val ELIXIR_PROJECT = Project(
                 exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        resources = Resources(time = 3.seconds, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000.kilobytes)
     ),
     execute = ProjectAction(
         script = ProjectFile(
@@ -113,6 +113,6 @@ val ELIXIR_PROJECT = Project(
                 elixir -e "Main.run()"
                 """.trimIndent()
         ),
-        resources = Resources(time = 3.seconds, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000.kilobytes)
     ),
 )

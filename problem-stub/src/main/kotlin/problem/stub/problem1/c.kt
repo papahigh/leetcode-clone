@@ -1,10 +1,10 @@
 package problem.stub.problem1
 
-import INPUT
 import problem.Problem.*
 import problem.Problem.Language.C
 import problem.Resources
-import kotlin.time.Duration.Companion.seconds
+import problem.resources.Memory.Companion.kilobytes
+import problem.resources.Time.Companion.seconds
 
 
 val C_PROJECT = Project(
@@ -142,7 +142,7 @@ val C_PROJECT = Project(
                 """.trimIndent()
         ),
 
-        resources = Resources(time = 3.seconds, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000.kilobytes)
     ),
     execute = ProjectAction(
         script = ProjectFile(
@@ -155,7 +155,7 @@ val C_PROJECT = Project(
                 ./main.out
                 """.trimIndent()
         ),
-        resources = Resources(time = 3.seconds, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000.kilobytes)
     ),
 )
 

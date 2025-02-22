@@ -9,6 +9,7 @@ import problem.ProblemID
 import problem.ProjectRepository
 import java.nio.file.Files
 import java.nio.file.Path
+import kotlin.math.roundToInt
 
 
 interface Deployment : AutoCloseable {
@@ -52,8 +53,8 @@ class DeploymentServiceImpl(
             private fun assemble(action: ProjectAction) = ArrayList<String>().apply {
                 addAll(listOf("sudo", "nsjail"))
                 add("--config=/etc/runtime/${project.lang.runtimeKey}.cfg")
-                add("--cgroup_mem_max=${action.resources.memory * 1000}")
-                add("--time_limit=${action.resources.time.inWholeSeconds}")
+                add("--cgroup_mem_max=${action.resources.memory.bytes()}")
+                add("--time_limit=${action.resources.time.seconds().roundToInt()}")
                 add("--bindmount=${tmpDir}:/app")
                 add("--cwd=/app")
                 addAll(listOf("--", "/usr/bin/bash", action.script.name))

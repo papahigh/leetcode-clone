@@ -1,3 +1,5 @@
+package problem.stub.problem1
+
 import problem.Problem
 
 val INPUT = Problem.ProjectFile(

@@ -29,6 +29,6 @@ data class SubmissionDetails(
     val code: SolutionCode,
     val stdout: String?,
     val stderr: String?,
-    val time: Int?,
     val memory: Int?,
+    val time: Int?,
 )

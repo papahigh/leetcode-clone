@@ -61,11 +61,11 @@ class SubmissionModel : IdentifiableModel() {
     var stderr: String? = null
 
     @Nullable
-    @Column(name = "time")
-    var time: Int? = null
-
-    @Nullable
     @Column(name = "memory")
     var memory: Int? = null
+
+    @Nullable
+    @Column(name = "time")
+    var time: Int? = null
 
 }

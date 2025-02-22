@@ -5,8 +5,8 @@ data class FeedbackEvent(
     val status: Status,
     val stdout: String? = null,
     val stderr: String? = null,
-    val time: Int? = null,
     val memory: Int? = null,
+    val time: Int? = null,
 ) {
 
     enum class Status {

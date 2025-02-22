@@ -2,7 +2,8 @@ package judge.service.evaluation
 
 import judge.FeedbackEvent.Status
 import problem.Resources
-import kotlin.time.Duration.Companion.milliseconds
+import problem.resources.Memory.Companion.bytes
+import problem.resources.Time.Companion.millis
 
 
 sealed interface FeedbackParser<T> {
@@ -125,7 +126,7 @@ sealed interface FeedbackParser<T> {
                 }
             }
             return if (time == null || memory == null) null
-            else Resources(time.milliseconds, memory)
+            else Resources(time = time.millis, memory = memory.bytes)
         }
     }
 

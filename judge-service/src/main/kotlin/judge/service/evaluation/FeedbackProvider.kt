@@ -27,8 +27,8 @@ class FeedbackProviderImpl : FeedbackProvider {
                 val accepted = FeedbackParser.accepted(result.stderr)
                 return if (accepted) {
                     val resources = FeedbackParser.resourcesUsage(result.stderr)
-                    val time = resources?.time?.inWholeMilliseconds?.toInt()
-                    val memory = resources?.memory
+                    val time = resources?.time?.millis()
+                    val memory = resources?.memory?.bytes()
                     createFeedback(event, result, status = ACCEPTED, time = time, memory = memory)
                 } else createFeedback(event, result)
             }

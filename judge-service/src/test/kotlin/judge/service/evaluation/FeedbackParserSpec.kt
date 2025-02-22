@@ -3,7 +3,8 @@ package judge.service.evaluation
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import judge.FeedbackEvent.Status
-import kotlin.time.Duration.Companion.milliseconds
+import problem.resources.Memory.Companion.bytes
+import problem.resources.Time.Companion.millis
 
 class FeedbackParserSpec : DescribeSpec({
 
@@ -204,10 +205,11 @@ class FeedbackParserSpec : DescribeSpec({
                 [S][880] JUDGE:0 881:time = 383
                 ...........................................................
                 ...........................................................
-                """.trimIndent())
+                """.trimIndent()
+            )
 
-            result?.time shouldBe 383.milliseconds
-            result?.memory shouldBe 64286720
+            result?.time shouldBe 383.millis
+            result?.memory shouldBe 64286720.bytes
         }
 
         it("should handle empty input") {
