@@ -6,6 +6,12 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="create_submission_table" author="Nikola P">
+        <validCheckSum>9:debc3ffb726d139d4c6df22d02f36107</validCheckSum>
+        <preConditions onFail="CONTINUE">
+            <not>
+                <tableExists tableName="submission"/>
+            </not>
+        </preConditions>
         <createTable tableName="submission">
             <column name="id" type="CHAR(13)">
                 <constraints primaryKey="true"/>
@@ -30,21 +36,6 @@
             <column name="time" type="INTEGER"/>
             <column name="memory" type="INTEGER"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="rename_output_column" author="Nikola P">
-        <renameColumn
-                tableName="submission"
-                oldColumnName="output"
-                newColumnName="stdout"
-                columnDataType="TEXT"
-        />
-    </changeSet>
-
-    <changeSet id="add_stderr_column" author="Nikola P">
-        <addColumn tableName="submission">
-            <column name="stderr" type="TEXT"/>
-        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

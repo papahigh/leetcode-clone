@@ -32,7 +32,7 @@ liquibase:
   datasources:
      default:
        enabled: true
-       changeLog: db/liquibase-changelog.xml
+       changeLog: db/liquibase.yml
 
 rabbitmq:
   uri: ${RABBIT_URL:`amqp://localhost:5672`}

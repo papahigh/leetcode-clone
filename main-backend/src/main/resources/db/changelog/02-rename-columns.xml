@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="rename_output_column" author="Nikola P">
+        <validCheckSum>9:b90721bb4cab87f7a76c4cdd58987654</validCheckSum>
+        <preConditions onFail="CONTINUE">
+            <columnExists tableName="submission" columnName="output"/>
+        </preConditions>
+        <renameColumn
+                tableName="submission"
+                oldColumnName="output"
+                newColumnName="stdout"
+                columnDataType="TEXT"
+        />
+    </changeSet>
+
+    <changeSet id="add_stderr_column" author="Nikola P">
+        <validCheckSum>9:a1feff849708fa1573372e312ed2b37a</validCheckSum>
+        <preConditions onFail="CONTINUE">
+            <not>
+                <columnExists tableName="submission" columnName="stderr"/>
+            </not>
+        </preConditions>
+        <addColumn tableName="submission">
+            <column name="stderr" type="TEXT"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

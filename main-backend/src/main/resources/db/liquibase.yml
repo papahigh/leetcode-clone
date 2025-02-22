@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/01-initial-schema.xml
+  - include:
+      file: db/changelog/02-rename-columns.xml
+  - include:
+      file: db/changelog/03-add-not-null-constraint.xml
