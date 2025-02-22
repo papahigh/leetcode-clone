@@ -7,7 +7,7 @@ import io.micronaut.rabbitmq.annotation.RabbitClient
 import io.micronaut.rabbitmq.annotation.RabbitListener
 import judge.FeedbackEvent
 import judge.FeedbackEvent.Status.EVALUATION_FAILED
-import judge.FeedbackEvent.Status.EVALUATION_RUNNING
+import judge.FeedbackEvent.Status.EVALUATION_STARTED
 import judge.SubmissionEvent
 import org.slf4j.LoggerFactory
 
@@ -28,7 +28,7 @@ class JudgeListener(
         try {
 
             log.info("Received submission: {}", event.id)
-            sender.send(FeedbackEvent(event.id, EVALUATION_RUNNING))
+            sender.send(FeedbackEvent(event.id, EVALUATION_STARTED))
 
             service.evaluate(event).apply { sender.send(this) }
             log.info("Processed submission: {}", event.id)

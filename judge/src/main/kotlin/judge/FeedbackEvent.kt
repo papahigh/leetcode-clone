@@ -11,7 +11,7 @@ data class FeedbackEvent(
 
     enum class Status {
         EVALUATION_PENDING,
-        EVALUATION_RUNNING,
+        EVALUATION_STARTED,
         EVALUATION_FAILED,
         COMPILATION_ERROR,
         RUNTIME_ERROR,
