@@ -4,6 +4,7 @@ import INPUT
 import problem.Problem.*
 import problem.Problem.Language.KOTLIN
 import problem.Resources
+import kotlin.time.Duration.Companion.seconds
 
 
 val KOTLIN_PROJECT = Project(
@@ -98,7 +99,7 @@ val KOTLIN_PROJECT = Project(
                 exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        resources = Resources(time = 10, memory = 512000)
+        resources = Resources(time = 10.seconds, memory = 512000)
     ),
     execute = ProjectAction(
         script = ProjectFile(
@@ -111,6 +112,6 @@ val KOTLIN_PROJECT = Project(
                 java -jar main.jar
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
 )

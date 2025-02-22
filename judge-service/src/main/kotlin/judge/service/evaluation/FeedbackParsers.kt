@@ -2,6 +2,7 @@ package judge.service.evaluation
 
 import judge.FeedbackEvent.Status
 import problem.Resources
+import kotlin.time.Duration.Companion.milliseconds
 
 
 sealed interface FeedbackParser<T> {
@@ -26,7 +27,7 @@ sealed interface FeedbackParser<T> {
             return WrongAnswerParser(stderr).parse()
         }
 
-        fun resourcesUsage(stderr: String): Resources {
+        fun resourcesUsage(stderr: String): Resources? {
             return ResourceUsageParser(stderr).parse()
         }
 
@@ -112,7 +113,7 @@ sealed interface FeedbackParser<T> {
      */
     private class ResourceUsageParser(stderr: String) : FeedbackParser<Resources?> {
         val iterator = stderr.lineSequence().iterator()
-        override fun parse(): Resources {
+        override fun parse(): Resources? {
             var time: Int? = null
             var memory: Int? = null
             while (iterator.hasNext()) {
@@ -123,8 +124,8 @@ sealed interface FeedbackParser<T> {
                     line.contains("time") -> time = line.lastIntValue()
                 }
             }
-            return if (time == null || memory == null) Resources.NOT_AVAILABLE
-            else Resources(time, memory)
+            return if (time == null || memory == null) null
+            else Resources(time.milliseconds, memory)
         }
     }
 

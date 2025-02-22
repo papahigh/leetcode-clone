@@ -3,7 +3,7 @@ package judge.service.evaluation
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import judge.FeedbackEvent.Status
-import problem.Resources
+import kotlin.time.Duration.Companion.milliseconds
 
 class FeedbackParserSpec : DescribeSpec({
 
@@ -206,14 +206,14 @@ class FeedbackParserSpec : DescribeSpec({
                 ...........................................................
                 """.trimIndent())
 
-            result.time shouldBe 383
-            result.memory shouldBe 64286720
+            result?.time shouldBe 383.milliseconds
+            result?.memory shouldBe 64286720
         }
 
         it("should handle empty input") {
             val result = FeedbackParser.resourcesUsage("")
 
-            result shouldBe Resources.NOT_AVAILABLE
+            result shouldBe null
         }
     }
 

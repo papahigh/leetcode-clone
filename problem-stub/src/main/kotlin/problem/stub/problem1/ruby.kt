@@ -4,6 +4,7 @@ import INPUT
 import problem.Problem.*
 import problem.Problem.Language.RUBY
 import problem.Resources
+import kotlin.time.Duration.Companion.seconds
 
 
 val RUBY_PROJECT = Project(
@@ -80,6 +81,6 @@ val RUBY_PROJECT = Project(
                 ruby main.rb
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
 )

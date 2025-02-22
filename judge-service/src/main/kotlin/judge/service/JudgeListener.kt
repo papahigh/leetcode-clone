@@ -6,6 +6,8 @@ import io.micronaut.rabbitmq.annotation.Queue
 import io.micronaut.rabbitmq.annotation.RabbitClient
 import io.micronaut.rabbitmq.annotation.RabbitListener
 import judge.FeedbackEvent
+import judge.FeedbackEvent.Status.EVALUATION_FAILED
+import judge.FeedbackEvent.Status.EVALUATION_RUNNING
 import judge.SubmissionEvent
 import org.slf4j.LoggerFactory
 
@@ -23,9 +25,18 @@ class JudgeListener(
     )
     @Counted("judge_service.submission_received")
     fun onSubmission(event: SubmissionEvent) {
-        log.info("Received submission: {}", event.id)
-        service.evaluate(event).apply { sender.send(this) }
-        log.info("Processed submission: {}", event.id)
+        try {
+
+            log.info("Received submission: {}", event.id)
+            sender.send(FeedbackEvent(event.id, EVALUATION_RUNNING))
+
+            service.evaluate(event).apply { sender.send(this) }
+            log.info("Processed submission: {}", event.id)
+
+        } catch (e: Exception) {
+            log.error("Failed to process submission: {}", event.id, e)
+            sender.send(FeedbackEvent(event.id, EVALUATION_FAILED))
+        }
     }
 
     @RabbitClient

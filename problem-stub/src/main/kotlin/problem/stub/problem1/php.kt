@@ -4,6 +4,7 @@ import INPUT
 import problem.Problem.*
 import problem.Problem.Language.PHP
 import problem.Resources
+import kotlin.time.Duration.Companion.seconds
 
 
 val PHP_PROJECT = Project(
@@ -98,6 +99,6 @@ val PHP_PROJECT = Project(
                 php main.php
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
 )

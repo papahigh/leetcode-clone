@@ -53,7 +53,7 @@ class DeploymentServiceImpl(
                 addAll(listOf("sudo", "nsjail"))
                 add("--config=/etc/runtime/${project.lang.runtimeKey}.cfg")
                 add("--cgroup_mem_max=${action.resources.memory * 1000}")
-                add("--time_limit=${action.resources.time}")
+                add("--time_limit=${action.resources.time.inWholeSeconds}")
                 add("--bindmount=${tmpDir}:/app")
                 add("--cwd=/app")
                 addAll(listOf("--", "/usr/bin/bash", action.script.name))
@@ -100,11 +100,11 @@ class DeploymentServiceImpl(
         }
 
         private fun Path.chown() {
-            Runtime.getRuntime().exec(arrayOf("sudo", "chown", "-R", "nobody:nogroup", toString()))
+            Runtime.getRuntime().exec(arrayOf("sudo", "chown", "-R", "nobody:nogroup", toString())).waitFor()
         }
 
         private fun Path.remove() {
-            Runtime.getRuntime().exec(arrayOf("sudo", "rm", "-rf", toString()))
+            Runtime.getRuntime().exec(arrayOf("sudo", "rm", "-rf", toString())).waitFor()
         }
     }
 }

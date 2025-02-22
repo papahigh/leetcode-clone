@@ -4,6 +4,7 @@ import INPUT
 import problem.Problem.*
 import problem.Problem.Language.PYTHON3
 import problem.Resources
+import kotlin.time.Duration.Companion.seconds
 
 
 val PYTHON3_PROJECT = Project(
@@ -77,6 +78,6 @@ val PYTHON3_PROJECT = Project(
                 python3 main.py
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
 )

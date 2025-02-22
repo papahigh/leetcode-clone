@@ -4,6 +4,7 @@ import INPUT
 import problem.Problem.*
 import problem.Problem.Language.SWIFT
 import problem.Resources
+import kotlin.time.Duration.Companion.seconds
 
 
 val SWIFT_PROJECT = Project(
@@ -110,7 +111,7 @@ val SWIFT_PROJECT = Project(
                 exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
     execute = ProjectAction(
         script = ProjectFile(
@@ -124,6 +125,6 @@ val SWIFT_PROJECT = Project(
                 ./main.out
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
 )

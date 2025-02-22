@@ -4,6 +4,7 @@ import INPUT
 import problem.Problem.*
 import problem.Problem.Language.C
 import problem.Resources
+import kotlin.time.Duration.Companion.seconds
 
 
 val C_PROJECT = Project(
@@ -141,7 +142,7 @@ val C_PROJECT = Project(
                 """.trimIndent()
         ),
 
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
     execute = ProjectAction(
         script = ProjectFile(
@@ -154,7 +155,7 @@ val C_PROJECT = Project(
                 ./main.out
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
 )
 

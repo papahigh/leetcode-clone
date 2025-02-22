@@ -4,6 +4,7 @@ import INPUT
 import problem.Problem.*
 import problem.Problem.Language.DART
 import problem.Resources
+import kotlin.time.Duration.Companion.seconds
 
 
 val DART_PROJECT = Project(
@@ -115,7 +116,7 @@ val DART_PROJECT = Project(
                 exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
     execute = ProjectAction(
         script = ProjectFile(
@@ -128,6 +129,6 @@ val DART_PROJECT = Project(
                 ./main.out
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
 )

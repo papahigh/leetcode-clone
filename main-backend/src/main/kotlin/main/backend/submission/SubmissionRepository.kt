@@ -8,6 +8,7 @@ import io.micronaut.data.runtime.criteria.get
 import io.micronaut.data.runtime.criteria.update
 import judge.FeedbackEvent
 import judge.SubmissionID
+import java.time.LocalDateTime
 
 
 @JdbcRepository(dialect = Dialect.MYSQL)
@@ -21,8 +22,9 @@ abstract class SubmissionRepository : CrudRepository<SubmissionModel, Submission
             set(SubmissionModel::status, event.status)
             event.stdout?.let { set(SubmissionModel::stdout, it) }
             event.stderr?.let { set(SubmissionModel::stderr, it) }
-            event.resources?.time?.let { set(SubmissionModel::time, it) }
-            event.resources?.memory?.let { set(SubmissionModel::memory, it) }
+            event.time?.let { set(SubmissionModel::time, it) }
+            event.memory?.let { set(SubmissionModel::memory, it) }
+            set(SubmissionModel::updatedAt, LocalDateTime.now())
             where {
                 root[SubmissionModel::id] eq event.id
             }

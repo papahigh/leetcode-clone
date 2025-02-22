@@ -6,7 +6,6 @@ import judge.FeedbackEvent.Status
 import judge.FeedbackEvent.Status.*
 import judge.SubmissionEvent
 import judge.service.evaluation.SystemCommand.CommandResult
-import problem.Resources
 
 interface FeedbackProvider {
     fun ofCompileResult(event: SubmissionEvent, result: CommandResult): FeedbackEvent
@@ -28,7 +27,9 @@ class FeedbackProviderImpl : FeedbackProvider {
                 val accepted = FeedbackParser.accepted(result.stderr)
                 return if (accepted) {
                     val resources = FeedbackParser.resourcesUsage(result.stderr)
-                    createFeedback(event, result, status = ACCEPTED, resources = resources)
+                    val time = resources?.time?.inWholeMilliseconds?.toInt()
+                    val memory = resources?.memory
+                    createFeedback(event, result, status = ACCEPTED, time = time, memory = memory)
                 } else createFeedback(event, result)
             }
 
@@ -54,8 +55,9 @@ class FeedbackProviderImpl : FeedbackProvider {
         stdout: String? = result.stdout,
         stderr: String? = null,
         status: Status = RUNTIME_ERROR,
-        resources: Resources = Resources.NOT_AVAILABLE,
-    ) = FeedbackEvent(id = event.id, status = status, stdout = stdout, stderr = stderr, resources = resources)
+        time: Int? = null,
+        memory: Int? = null,
+    ) = FeedbackEvent(event.id, status, stdout = stdout, stderr = stderr, time = time, memory = memory)
 
     private companion object {
         const val ACCEPTED_EXIT_CODE = 0

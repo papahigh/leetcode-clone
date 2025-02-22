@@ -4,6 +4,7 @@ import INPUT
 import problem.Problem.*
 import problem.Problem.Language.ERLANG
 import problem.Resources
+import kotlin.time.Duration.Companion.seconds
 
 
 val ERLANG_PROJECT = Project(
@@ -112,7 +113,7 @@ val ERLANG_PROJECT = Project(
                 exit "${'$'}EXIT_CODE"
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
     execute = ProjectAction(
         script = ProjectFile(
@@ -125,6 +126,6 @@ val ERLANG_PROJECT = Project(
                 erl -noshell -s main run -s init stop
                 """.trimIndent()
         ),
-        resources = Resources(time = 3, memory = 75000)
+        resources = Resources(time = 3.seconds, memory = 75000)
     ),
 )
