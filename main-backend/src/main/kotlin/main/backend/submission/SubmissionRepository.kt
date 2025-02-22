@@ -19,15 +19,15 @@ abstract class SubmissionRepository : CrudRepository<SubmissionModel, Submission
 
     fun updateFeedback(event: FeedbackEvent) {
         var update = update<SubmissionModel> {
+            set(SubmissionModel::updatedAt, LocalDateTime.now())
             set(SubmissionModel::status, event.status)
+
             event.stdout?.let { set(SubmissionModel::stdout, it) }
             event.stderr?.let { set(SubmissionModel::stderr, it) }
-            event.time?.let { set(SubmissionModel::time, it) }
             event.memory?.let { set(SubmissionModel::memory, it) }
-            set(SubmissionModel::updatedAt, LocalDateTime.now())
-            where {
-                root[SubmissionModel::id] eq event.id
-            }
+            event.time?.let { set(SubmissionModel::time, it) }
+
+            where { root[SubmissionModel::id] eq event.id }
         }
         updateAll(update)
     }
