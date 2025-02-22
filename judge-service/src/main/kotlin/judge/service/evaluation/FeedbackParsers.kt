@@ -2,8 +2,8 @@ package judge.service.evaluation
 
 import judge.FeedbackEvent.Status
 import problem.Resources
-import problem.resources.Memory.Companion.bytes
-import problem.resources.Time.Companion.millis
+import problem.Resources.Companion.bytes
+import problem.Resources.Companion.millis
 
 
 sealed interface FeedbackParser<T> {

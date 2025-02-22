@@ -3,8 +3,8 @@ package judge.service.evaluation
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import judge.FeedbackEvent.Status
-import problem.resources.Memory.Companion.bytes
-import problem.resources.Time.Companion.millis
+import problem.Resources.Companion.bytes
+import problem.Resources.Companion.millis
 
 class FeedbackParserSpec : DescribeSpec({
 

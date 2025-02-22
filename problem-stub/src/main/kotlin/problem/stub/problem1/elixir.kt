@@ -3,8 +3,8 @@ package problem.stub.problem1
 import problem.Problem.*
 import problem.Problem.Language.ELIXIR
 import problem.Resources
-import problem.resources.Memory.Companion.kilobytes
-import problem.resources.Time.Companion.seconds
+import problem.Resources.Companion.kilobytes
+import problem.Resources.Companion.seconds
 
 
 val ELIXIR_PROJECT = Project(

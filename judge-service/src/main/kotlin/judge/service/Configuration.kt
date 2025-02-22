@@ -21,8 +21,8 @@ import problem.stub.ProblemRepositoryStub
 @SerdeImport(problem.Problem.ProjectAction::class)
 @SerdeImport(problem.Problem.Language::class)
 @SerdeImport(problem.Resources::class)
-@SerdeImport(problem.resources.Time::class)
-@SerdeImport(problem.resources.Memory::class)
+@SerdeImport(problem.Resources.Time::class)
+@SerdeImport(problem.Resources.Memory::class)
 class SerdeConfig
 
 
