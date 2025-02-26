@@ -1,3 +1,10 @@
+import cz.habarta.typescript.generator.EnumMapping
+import cz.habarta.typescript.generator.JsonLibrary
+import cz.habarta.typescript.generator.StringQuotes
+import cz.habarta.typescript.generator.TypeScriptFileType
+import cz.habarta.typescript.generator.TypeScriptGenerator
+import cz.habarta.typescript.generator.TypeScriptOutputKind
+
 plugins {
     kotlin("jvm")
     kotlin("kapt")
@@ -7,6 +14,7 @@ plugins {
     id("io.micronaut.application")
     id("com.google.cloud.tools.jib")
     id("io.micronaut.aot")
+    id("cz.habarta.typescript-generator") version "3.2.1263"
 }
 
 version = "1.0"
@@ -88,7 +96,38 @@ tasks {
     graalvmNative { toolchainDetection = false }
 
     named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") { jdkVersion = "21" }
+
+    generateTypeScript {
+        classes = listOf(
+            "main.backend.problem.ProblemSummary",
+            "main.backend.problem.ProblemDetails",
+            "main.backend.submission.CreateSubmission",
+            "main.backend.submission.SubmissionSummary",
+            "main.backend.submission.SubmissionDetails",
+        )
+
+        excludeClasses = listOf(
+            "java.io.Serializable",
+        )
+        excludeClassPatterns = listOf(
+            "**\$Companion",
+            "**Exception",
+        )
+
+        mapEnum = EnumMapping.asEnum
+        stringQuotes = StringQuotes.singleQuotes
+        noEslintDisable = true
+        noTslintDisable = true
+        indentString = "  "
+
+        outputFile = getTypeScriptOutput()
+        jsonLibrary = JsonLibrary.jackson2
+        outputKind = TypeScriptOutputKind.module
+        outputFileType = TypeScriptFileType.implementationFile
+    }
 }
+
+fun getTypeScriptOutput() = project.rootDir.resolve("main-frontend/app/shared/types.ts").toPath().toAbsolutePath().toString()
 
 micronaut {
     runtime("jetty")
