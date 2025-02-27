@@ -102,7 +102,6 @@ tasks {
             "main.backend.problem.ProblemSummary",
             "main.backend.problem.ProblemDetails",
             "main.backend.submission.CreateSubmission",
-            "main.backend.submission.SubmissionSummary",
             "main.backend.submission.SubmissionDetails",
         )
 

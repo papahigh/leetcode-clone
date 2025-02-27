@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory
 
 
 interface SubmissionService {
-    fun create(request: CreateSubmission): SubmissionSummary
+    fun create(request: CreateSubmission): SubmissionDetails
     fun getById(id: SubmissionID): SubmissionDetails?
 }
 
@@ -33,10 +33,10 @@ class SubmissionServiceImpl(
 
     @Transactional
     @Counted("main_backend.submission_created")
-    override fun create(request: CreateSubmission): SubmissionSummary {
+    override fun create(request: CreateSubmission): SubmissionDetails {
         var model = repository.save(mapper.map(request))
         eventPublisher.publishEvent(mapper.toEvent(model))
-        return mapper.toSummary(model)
+        return mapper.toDetails(model)
     }
 
     @TransactionalEventListener(TransactionPhase.AFTER_COMMIT)

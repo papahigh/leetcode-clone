@@ -16,9 +16,6 @@ data class CreateSubmission(
 )
 
 @Serdeable
-data class SubmissionSummary(val id: SubmissionID)
-
-@Serdeable
 data class SubmissionDetails(
     val id: SubmissionID,
     val createdAt: LocalDateTime,

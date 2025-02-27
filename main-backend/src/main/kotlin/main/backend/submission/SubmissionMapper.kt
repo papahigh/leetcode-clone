@@ -11,8 +11,6 @@ import org.mapstruct.ReportingPolicy.IGNORE
 interface SubmissionMapper {
     fun toEvent(model: SubmissionModel): SubmissionEvent
 
-    fun toSummary(model: SubmissionModel): SubmissionSummary
-
     fun toDetails(model: SubmissionModel): SubmissionDetails
 
     @Mapping(target = "status", expression = "java(judge.FeedbackEvent.Status.EVALUATION_PENDING)")
