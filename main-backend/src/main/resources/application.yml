@@ -3,6 +3,9 @@ micronaut:
     name: main-backend
   server:
     host: "0.0.0.0"
+    cors:
+      enabled: true
+
   metrics:
     enabled: true
     export:
