@@ -2,6 +2,8 @@
 
 This project showcases the implementation of sandboxing in Kubernetes through a LeetCode-style application.
 
+![LeetCodeClone: a new way to learn](./assets/screenshot.png?raw=true "LeetCodeClone")
+
 Please see the [list](/judge-runtime) of supported programming languages.
 
 ## Getting Started
@@ -43,5 +45,3 @@ This command starts the application in development mode, deploying the necessary
 Once all services are up and running, navigate to the following URL in your browser: [http://localhost:3000](http://localhost:3000).
 You'll see a demo problem ready to be solved!
 
-
-![LeetCodeClone: a new way to learn](./assets/screenshot.png?raw=true "LeetCodeClone")
