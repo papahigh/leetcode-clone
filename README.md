@@ -2,28 +2,6 @@
 
 This project showcases the implementation of sandboxing in Kubernetes through a LeetCode-style application.
 
-## Supported Languages
-
-| Language   | Compiler / Runtime |
-|------------|--------------------|
-| C          | Clang 19           |
-| C++        | Clang 19           |
-| C#         | .NET 9             |
-| Dart       | 3.6.2              |
-| Elixir     | 1.14.0             |
-| Erlang     | 25                 |
-| Go         | 1.19.8             |
-| Java       | OpenJDK 21         |
-| JavaScript | Node.js 22         |
-| Kotlin     | 2.1.10             |
-| PHP        | 8.2.26             |
-| Python     | 3.11               |
-| Ruby       | 3.1.2              |
-| Rust       | 1.63.0             |
-| Swift      | 6.0.3              |
-| TypeScript | 5.7.3              |
-
-
 ## Getting Started
 
 This guide will assist you in setting up the **LeetCodeClone** project in your local development environment.
