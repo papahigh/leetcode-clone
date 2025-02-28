@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+.resize-handle {
+    position: relative;
+
+    &:not(.disabled)::after {
+        content: "";
+        position: absolute;
+
+        border-radius: 2px;
+        @apply bg-stone-700;
+    }
+
+    &.horizontal {
+        height: 4px;
+        @apply my-2;
+
+        &::after {
+            top: 0;
+            left: 50%;
+            width: 80px;
+            height: 4px;
+            transform: translateX(-50%);
+
+            transition: width 150ms ease-out, background 150ms ease-out;
+            transition-delay: 100ms;
+        }
+    }
+
+    &.vertical {
+        width: 4px;
+        @apply mx-2;
+
+        &::after {
+            top: 50%;
+            left: 0;
+            width: 4px;
+            height: 80px;
+            transform: translateY(-50%);
+            transition: height 150ms ease-out, background 150ms ease-out;
+            transition-delay: 100ms;
+        }
+    }
+
+    &.focused:not(.disabled) {
+        &::after {
+            @apply bg-blue-400
+        }
+
+        &.horizontal::after {
+            width: 100%;
+        }
+
+        &.vertical::after {
+            height: 100%;
+        }
+    }
+}
