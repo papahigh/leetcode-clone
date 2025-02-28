@@ -18,31 +18,38 @@ val PROBLEM = Problem(
         - The string will not contain extra spaces (only a single space between words).
         - It is guaranteed that the string will not be empty.
         
-        ---
         ### Input and Output Format
-        Input:
-        - A string s (1 ≤ length of s ≤ 100)
         
-        Output:
-        - A string with swapped words.
+        > **Input** A string s (`1 ≤` length of s `≤ 100`)
+        >
+        > **Output** A string with swapped words
         
         ---
+        
         ### Example 1
-        - Input: "hello world"  
-        - Output: "world hello"  
+        ```
+        Input: "hello world"  
+        Output: "world hello"  
+        ```
         
         ### Example 2
-        - Input: "code your dreams"  
-        - Output: "dreams your code"  
+        ```
+        Input: "code your dreams"  
+        Output: "dreams your code"  
+        ```
         
         ### Example 3
-        - Input: Input: "a b"  
-        - Output: "b a"  
+        ```
+        Input: "a b"  
+        Output: "b a"  
+        ```
         
+            
         ### Example 4
-        - Input: "word"  
-        - Output: "word"
-        
+        ```
+        Input: "word"  
+        Output: "word"
+        ```
         """.trimIndent(),
 
     projects = listOf(
