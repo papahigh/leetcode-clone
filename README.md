@@ -2,6 +2,8 @@
 
 This project showcases the implementation of sandboxing in Kubernetes through a LeetCode-style application.
 
+Please see the [list](/judge-runtime) of supported programming languages.
+
 ## Getting Started
 
 This guide will assist you in setting up the **LeetCodeClone** project in your local development environment.
