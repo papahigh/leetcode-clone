@@ -1,6 +1,6 @@
 # leetcode-clone
 
-This project showcases the implementation of sandboxing in Kubernetes through a LeetCode-style application.
+This project showcases the implementation of scalable sandboxing through a LeetCode-style application.
 
 ![LeetCodeClone: a new way to learn](./assets/screenshot.png?raw=true "LeetCodeClone")
 
