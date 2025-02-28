@@ -13,6 +13,8 @@ fullnameOverride: ""
 podAnnotations: {}
 podLabels: {}
 
+env: []
+
 service:
   type: ClusterIP
   port: 3000

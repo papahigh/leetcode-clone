@@ -60,3 +60,6 @@ main-frontend:
   enabled: false
   image:
     pullPolicy: Never
+  env:
+    - name: API_BASE_URL
+      value: http://leetcode-clone-main-backend:8080

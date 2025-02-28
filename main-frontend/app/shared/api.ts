@@ -1,4 +1,5 @@
 import axios from 'redaxios';
+import { isSSR } from '~/shared/utils';
 
 import type { CreateSubmission, SubmissionDetails, ProblemDetails, ProblemSummary } from './types';
 
@@ -24,7 +25,7 @@ class ApiClient {
 
 export const api = new ApiClient(
   axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: isSSR() ? process.env?.API_BASE_URL : import.meta.env.VITE_API_BASE_URL,
     responseType: 'json',
     withCredentials: false,
   }),

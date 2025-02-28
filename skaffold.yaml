@@ -2,6 +2,62 @@ apiVersion: skaffold/v4beta12
 kind: Config
 
 profiles:
+  - name: all
+    build:
+      local: {}
+      artifacts:
+        - image: development/leetcode-clone-judge-service
+          jib:
+            project: judge-service
+            fromImage: papahigh/judge-runtime
+        - image: development/leetcode-clone-main-backend
+          jib:
+            project: main-backend
+            fromImage: openjdk:21-slim-bookworm
+        - image: development/leetcode-clone-main-frontend
+          context: main-frontend
+          docker:
+            cacheFrom:
+              - development/leetcode-clone-main-frontend
+    deploy:
+      helm:
+        releases:
+          - name: leetcode-clone
+            chartPath: ./deploy
+            valuesFiles:
+              - ./deploy/values.yaml
+              - ./deploy/values.skaffold.yaml
+            namespace: leetcode-clone
+            overrides:
+              mysql:
+                enabled: false
+              rabbitmq:
+                enabled: false
+              judge-service:
+                enabled: true
+                image:
+                  name: development/leetcode-clone-judge-service
+              main-backend:
+                enabled: true
+                image:
+                  name: development/leetcode-clone-main-backend
+              main-frontend:
+                enabled: true
+                image:
+                  name: development/leetcode-clone-main-frontend
+
+    portForward:
+      - resourceName: leetcode-clone-main-backend
+        resourceType: Service
+        namespace: leetcode-clone
+        localPort: 8080
+        port: 8080
+      - resourceName: leetcode-clone-main-frontend
+        resourceType: Service
+        namespace: leetcode-clone
+        localPort: 3000
+        port: 3000
+
   - name: backend
     build:
       local: {}
