@@ -1,40 +1,67 @@
 # leetcode-clone
 
-## Work in Progress (WIP)
+This project showcases the implementation of sandboxing in Kubernetes through a LeetCode-style application.
 
-This project is currently under development.
+## Supported Languages
+
+| Language   | Compiler / Runtime |
+|------------|--------------------|
+| C          | Clang 19           |
+| C++        | Clang 19           |
+| C#         | .NET 9             |
+| Dart       | 3.6.2              |
+| Elixir     | 1.14.0             |
+| Erlang     | 25                 |
+| Go         | 1.19.8             |
+| Java       | OpenJDK 21         |
+| JavaScript | Node.js 22         |
+| Kotlin     | 2.1.10             |
+| PHP        | 8.2.26             |
+| Python     | 3.11               |
+| Ruby       | 3.1.2              |
+| Rust       | 1.63.0             |
+| Swift      | 6.0.3              |
+| TypeScript | 5.7.3              |
 
 
-## Local Development Setup
+## Getting Started
 
-This guide provides instructions for setting up a local development environment.
+This guide will assist you in setting up the **LeetCodeClone** project in your local development environment.
 
 ### Prerequisites
 
-Before you begin, ensure you have the following tools installed:
+Before beginning the setup, ensure you have the following tools installed on your system:
 
-- **Helm:**  A package manager for Kubernetes.  [Install Helm](https://helm.sh/docs/intro/install/)
-- **Skaffold:** A command-line tool that facilitates continuous development for Kubernetes applications. [Install Skaffold](https://skaffold.dev/docs/install/)
-- **kubectl:** Kubernetes command-line tool. [Install kubectl](https://kubernetes.io/docs/tasks/tools/)
+1. [**Helm**](https://helm.sh/docs/intro/install/): A package manager for Kubernetes.
+2. [**Skaffold**](https://skaffold.dev/docs/install/): Streamlines continuous development and deployment for Kubernetes applications.
+3. [**kubectl**](https://kubernetes.io/docs/tasks/tools/): A powerful Kubernetes CLI tool to manage cluster resources.
 
 
-### 1. Set up the Kubernetes Environment
+### 1. Kubernetes Environment Setup
 
-Use Helm to deploy the necessary Kubernetes resources:
+Deploy the application's Kubernetes resources with **Helm** as follows:
 
 ```shell
 helm install environment ./deploy/ -f ./deploy/values.skaffold.yaml --namespace leetcode-clone --create-namespace
 ```
 
-This command creates a Kubernetes namespace `leetcode-clone` (if it doesn't already exist) and deploys the environment defined in `./deploy/values.skaffold.yaml`.
+This command performs the following steps:
+- Deploys the application's configurations as defined in `values.skaffold.yaml`.
+- Creates a new Kubernetes namespace named `leetcode-clone` (if it doesn’t exist already).
 
-### 2. Start Development Mode
+### 2. Start the Application
 
-Use Skaffold to build and deploy the application in development mode:
+To launch the application locally, use the **Skaffold** CLI:
 
-```shell
-skaffold dev -p backend
+```bash
+skaffold dev -p all
 ```
+This command starts the application in development mode, deploying the necessary Kubernetes configurations and Docker containers.
 
-This command builds the backend service, deploys it to the Kubernetes cluster, and watches for code changes.  
-Skaffold will automatically rebuild and redeploy the application whenever you save changes to your source code.
+### 3. Open Your Browser
+
+Once all services are up and running, navigate to the following URL in your browser: [http://localhost:3000](http://localhost:3000).
+You'll see a demo problem ready to be solved!
+
+
+![LeetCodeClone: a new way to learn](./assets/screenshot.png?raw=true "LeetCodeClone")
