@@ -17,7 +17,7 @@ Before beginning the setup, ensure you have the following tools installed on you
 3. [**kubectl**](https://kubernetes.io/docs/tasks/tools/): A powerful Kubernetes CLI tool to manage cluster resources.
 
 
-### 1. Kubernetes Environment Setup
+### 1. Environment Setup
 
 Deploy the application's Kubernetes resources with **Helm** as follows:
 
